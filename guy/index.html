@@ -80,6 +80,10 @@ body{margin:0;-webkit-text-size-adjust:100%}
 .w-pie{font-family:"Sans",sans-serif;font-size:13px;color:#8EA3B5;text-align:center;padding:10px 0 calc(96px + env(safe-area-inset-bottom,0px));margin:0}
 .w-barra{position:fixed;left:0;right:0;bottom:0;z-index:5;background:rgba(11,34,56,.96);border-top:1px solid rgba(214,226,220,.18);padding:10px max(14px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px))}
 .w-barra .w-botones{max-width:520px;margin:0 auto}
+.w-solo .datos-oficina{display:none !important}  /* la general es solo el dossier: sin los datos de la oficina */
+.w-descarga{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:5;display:flex;align-items:center;gap:8px;min-height:48px;padding:0 18px;background:var(--menta);color:var(--noche);font-family:"Sans",sans-serif;font-size:15px;font-weight:600;text-decoration:none;box-shadow:0 8px 24px rgba(0,0,0,.35)}
+.w-descarga:focus-visible{outline:3px solid #F7F2E8;outline-offset:2px}
+.w-solo .w-hojas{padding-bottom:calc(84px + env(safe-area-inset-bottom,0px))}
 @media (min-width:820px){
   .w-ficha .w-env{grid-template-columns:1fr auto;align-items:center}
   .w-ficha .w-botones{grid-template-columns:repeat(4,auto)}
@@ -354,8 +358,8 @@ body{margin:0;-webkit-text-size-adjust:100%}
   <div class="raya" style="left:916px;top:296px;width:1020px"></div>
   <h1 style="left:914px;top:372px;font-size:136px;line-height:.98">Hablemos de<br>vuestra próxima<br>apertura</h1>
   <p class="p" style="left:916px;top:820px;width:1000px;font-size:31px;line-height:1.5">Contadnos vuestro plan de expansión y os<br>presentamos activos a medida.</p>
-  <div class="raya" style="left:916px;top:968px;width:1020px"></div>
-  <div style="position:absolute;left:916px;top:1010px;display:flex;align-items:stretch">
+  <div class="raya datos-oficina" style="left:916px;top:968px;width:1020px"></div>
+  <div class="datos-oficina" style="position:absolute;left:916px;top:1010px;display:flex;align-items:stretch">
     <div style="padding-right:76px"><div style="font-size:20px;letter-spacing:.04em;color:#B9CCC4">Teléfono</div><div style="font-size:32px;color:#F7F2E8;margin-top:10px">633 644 768</div></div>
     <div style="padding-left:76px;border-left:1.5px solid rgba(214,226,220,.35)"><div style="font-size:20px;letter-spacing:.04em;color:#B9CCC4">Email</div><div style="font-size:32px;color:#F7F2E8;margin-top:10px">office@ayalon-invest.com</div></div>
   </div>
