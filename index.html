@@ -1,0 +1,362 @@
+<!doctype html>
+<html lang="es"><head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Expand · Dossier para marcas</title>
+<meta name="description" content="Expand, el área de expansión de Ayalon Investments: compramos el local que necesita vuestra marca y os lo alquilamos.">
+<meta property="og:title" content="Expand · by Ayalon Investments">
+<meta property="og:description" content="Vuestra expansión, nuestro compromiso. Compramos el local y os lo alquilamos.">
+<meta property="og:image" content="img/portada.jpg">
+<meta name="theme-color" content="#0B2238">
+<link rel="icon" href="marca/expand-simbolo.svg">
+<style>
+/* Expand · dossier web. Primero el móvil (375 px); en ordenador se abre a dos columnas. */
+@font-face{font-family:"Serif";src:url("fonts/DMSerifDisplay-Regular.ttf");font-display:swap}
+@font-face{font-family:"Sans";src:url("fonts/Figtree.ttf");font-weight:300 900;font-display:swap}
+:root{
+  --papel:#EDECE3; --blanco:#FFFFFF; --tinta:#141414; --texto:#0B6B57; --noche:#0B2238; --verde:#0B6B57;
+  --menta:#2FBF8A; --suave:#BFDDD2; --gris:#5B6772; --crema:#F7F2E8; --linea:#BFD3CA; --linea-osc:#253A50;
+  --lado:max(20px, env(safe-area-inset-left, 0px));
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{background:var(--papel) url("img/papel.png");color:var(--texto);font-family:"Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.55}
+img{max-width:100%;display:block}
+a{color:inherit}
+.env{max-width:1120px;margin:0 auto;padding-left:var(--lado);padding-right:max(20px, env(safe-area-inset-right, 0px))}
+
+/* cabecera fija */
+.cab{position:sticky;top:0;z-index:20;background:rgba(237,236,227,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--linea);padding-top:env(safe-area-inset-top,0px)}
+.cab .env{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
+.cab img{height:38px}
+.cab a.btn{min-height:40px;padding:0 16px;font-size:15px}
+
+/* botones (se usan con el dedo: 48 px de alto) */
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border:1.5px solid var(--verde);color:var(--verde);background:transparent;font-weight:600;font-size:16px;text-decoration:none;border-radius:2px;text-align:center}
+.btn.prim{background:var(--verde);color:#fff}
+.btn:active{transform:translateY(1px)}
+.btn:focus-visible{outline:3px solid var(--menta);outline-offset:2px}
+
+/* tipografía */
+.rot{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--noche);padding-bottom:14px;border-bottom:1px solid var(--linea)}
+.rot i{font-style:normal}
+.rot i::after{content:"•";margin-left:10px}
+h1,h2{font-family:"Serif";font-weight:400;letter-spacing:-.02em;line-height:1.0;color:var(--noche);text-wrap:balance}
+h1{font-size:clamp(40px,10vw,76px)}
+h2{font-size:clamp(36px,8.4vw,64px);margin-top:22px}
+h1 em,h2 em{font-style:normal}
+h3{font-family:"Serif";font-weight:400;font-size:25px;line-height:1.1;color:var(--noche)}
+.etq{font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--verde)}
+p+p{margin-top:14px}
+.lead{font-size:19px}
+b{font-weight:700}
+.osc{background:var(--noche);color:#D3E0DA}
+.osc h1,.osc h2,.osc h3,.osc b{color:var(--crema)}
+.osc .rot{color:#E6ECE8;border-color:rgba(214,226,220,.3)} .osc .etq{color:#B9CCC4}
+
+section{padding:64px 0}
+section+section{border-top:1px solid var(--linea)}
+section.osc{border-top:0}
+.dos{display:grid;gap:28px}
+.cifra{font-family:"Serif";font-weight:400;font-size:50px;line-height:1;letter-spacing:-.015em;color:var(--noche)}
+.cifra small{font-size:.48em;margin-left:3px}
+.osc .cifra{color:var(--crema)}
+
+/* portada */
+.portada{padding:0}
+.portada .foto{width:100%;aspect-ratio:4/3;object-fit:cover}
+.portada .env{padding-top:30px;padding-bottom:40px}
+.by{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--gris);margin-bottom:22px}
+.by img{height:34px}
+.portada p.lead{margin-top:16px}
+
+/* ficha de contacto */
+.ficha{margin-top:28px;background:rgba(255,255,255,.6);border:1px solid var(--linea);padding:18px}
+.ficha-cab{display:flex;align-items:center;gap:14px}
+.ficha-cab .avatar{width:64px;height:64px;object-fit:cover;object-position:50% 18%;border-radius:50%;background:var(--papel)}
+.ficha-cab b{display:block;font-family:"Serif";font-weight:400;font-size:24px;color:var(--noche)}
+.ficha-cab span{font-size:14px;color:var(--gris)}
+.botones{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
+.datos{margin-top:12px;font-size:14px;color:var(--gris);overflow-wrap:anywhere}
+.osc .ficha{background:#11294A;border-color:var(--linea-osc)}
+.osc .ficha-cab span,.osc .datos{color:#A9B8C6}
+.osc .btn{border-color:var(--menta);color:var(--menta)} .osc .btn.prim{background:var(--menta);color:var(--noche)}
+.pdf{margin-top:12px;width:100%}
+
+/* equipo */
+.socios{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
+.socios img{aspect-ratio:4/5;object-fit:cover;object-position:50% 18%;width:100%}
+.socios h3{margin-top:12px}
+.equipo{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 10px;margin-top:22px}
+.equipo img{aspect-ratio:4/5;object-fit:cover;object-position:50% 15%;width:100%}
+.equipo b{display:block;font-family:"Serif";font-weight:400;font-size:17px;color:var(--noche);margin-top:8px;line-height:1.15}
+.equipo span{display:block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--verde);margin-top:3px}
+
+/* cifras */
+.cifras{display:grid;grid-template-columns:1fr 1fr;gap:22px 14px;margin-top:28px}
+.cifras img{aspect-ratio:16/10;object-fit:cover;width:100%;margin-bottom:12px}
+.cifras .etq{margin-top:8px}
+
+/* referencias: carrusel con el dedo */
+.carril{display:grid;grid-auto-flow:column;grid-auto-columns:72%;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:24px;padding-bottom:8px;-webkit-overflow-scrolling:touch}
+.carril>*{scroll-snap-align:start}
+.carril img{aspect-ratio:3/2;object-fit:cover;width:100%}
+.carril h3{margin-top:10px}
+
+/* listas numeradas */
+.pasos{margin-top:26px;border-top:1px solid var(--linea)}
+.pasos li{list-style:none;display:grid;grid-template-columns:56px 1fr;padding:18px 0;border-bottom:1px solid var(--linea)}
+.pasos .n{font-family:"Serif";font-size:36px;line-height:1;color:var(--noche)}
+.pasos p{margin-top:6px}
+.osc .pasos,.osc .pasos li{border-color:var(--linea-osc)} .osc .pasos .n{color:var(--menta)}
+
+/* cómo trabajamos: línea vertical con cuadrados */
+.linea{margin-top:28px;position:relative;padding-left:34px}
+.linea::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:var(--linea-osc)}
+.linea li{list-style:none;position:relative;padding-bottom:24px}
+.linea li::before{content:"";position:absolute;left:-34px;top:6px;width:14px;height:14px;background:var(--menta)}
+.linea li:nth-child(-n+2)::before{background:var(--suave)}
+.linea .etq{color:var(--menta)}
+
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
+.chips span{font-size:14px;padding:7px 12px;border:1px solid var(--linea);border-radius:999px;background:rgba(255,255,255,.55);color:var(--noche)}
+.chips span.d{background:var(--verde);border-color:var(--verde);color:#fff}
+
+.capturas{display:grid;grid-auto-flow:column;grid-auto-columns:62%;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:24px;padding-bottom:8px}
+.capturas figure{scroll-snap-align:start}
+.capturas img{width:100%;border-radius:14px;box-shadow:0 14px 30px rgba(11,34,56,.18)}
+.capturas figcaption{font-size:13px;color:var(--gris);margin-top:10px}
+.portatil{margin-top:24px;border:10px solid #0b0f1e;border-radius:14px 14px 4px 4px;box-shadow:0 18px 40px rgba(11,34,56,.25)}
+
+.pie{padding:36px 0 calc(36px + env(safe-area-inset-bottom,0px));background:var(--noche);color:#8EA3B5;font-size:14px;border-top:1px solid var(--linea-osc)}
+.pie .env{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
+.pie img{height:40px}
+
+@media (min-width:860px){
+  body{font-size:18px}
+  section{padding:96px 0}
+  .portada{display:grid;grid-template-columns:1fr 1fr;align-items:stretch}
+  .portada .foto{aspect-ratio:auto;height:100%;max-height:820px;order:2}
+  .portada .env{padding:64px 56px;max-width:none}
+  .dos{grid-template-columns:1fr 1fr;gap:56px;align-items:center}
+  .equipo{grid-template-columns:repeat(7,1fr)}
+  .cifras{grid-template-columns:repeat(3,1fr);gap:36px 28px}
+  .cifra{font-size:60px}
+  .carril{grid-auto-flow:row;grid-template-columns:repeat(4,1fr);overflow:visible}
+  .capturas{grid-auto-columns:30%}
+  .botones{grid-template-columns:repeat(4,auto);justify-content:start}
+}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+
+<header class="cab"><div class="env">
+  <img src="marca/expand-by-ayalon.svg" alt="Expand by Ayalon Investments">
+  <a class="btn prim" href="#contacto">Hablemos</a>
+</div></header>
+
+<main>
+<section class="portada">
+  <img class="foto" src="img/portada.jpg" alt="Local comercial en esquina con escaparate">
+  <div class="env">
+        <h1>Vuestra expansión, nuestro <em>compromiso</em></h1>
+    <p class="lead">Un socio cercano para vuestro plan de expansión, de la búsqueda del local a la apertura.</p>
+    
+      <div class="ficha">
+        <div class="ficha-cab"><img class="avatar" src="marca/expand-simbolo.svg" alt=""><div><b>Oficina</b><span>Expand · by Ayalon Investments</span></div></div>
+        <div class="botones">
+          <a class="btn prim" href="tel:+34633644768">Llamar · 633 644 768</a>
+          <a class="btn" href="mailto:office@ayalon-invest.com">Escribir un correo</a>
+        </div>
+      </div>
+    <a class="btn pdf" href="expand-dossier.pdf" download>Descargar el dossier en PDF</a>
+  </div>
+</section>
+
+<section><div class="env dos">
+  <div>
+    <div class="rot"><i>01</i>Sobre nosotros</div>
+    <h2>Partners de las marcas en su <em>expansión</em></h2>
+    <p style="margin-top:20px">Colaboramos con los operadores más relevantes del mercado español como un socio más de su plan de expansión: entendemos su negocio, sus plazos y lo que necesita cada apertura.</p>
+    <p>Somos un equipo boutique, con un trato cercano y personalizado. Cada operador tiene un <b>interlocutor directo</b> que le acompaña desde la búsqueda del local hasta la firma, y durante toda la relación.</p>
+    <p><b>Expand</b> es el área de expansión de Ayalon Investments: el fondo compra los locales y os los alquila, y nuestro equipo os acompaña en cada apertura.</p>
+  </div>
+  <img src="img/reunion.jpg" alt="El equipo reunido con una marca" loading="lazy">
+</div></section>
+
+<section><div class="env">
+  <div class="rot"><i>02</i>Equipo</div>
+  <h2>Las personas detrás de cada <em>apertura</em></h2>
+  <div class="socios">
+    <div><img src="img/e-guy.jpg" alt="Guy Ayalon" loading="lazy"><h3>Guy Ayalon</h3><div class="etq">CEO · Socio fundador</div></div>
+    <div><img src="img/e-nir.jpg" alt="Nir Ayalon" loading="lazy"><h3>Nir Ayalon</h3><div class="etq">Partner &amp; Managing Director</div></div>
+  </div>
+  <div class="equipo">
+    <div><img src="img/e-jaime.jpg" alt="" loading="lazy"><b>Jaime Pons</b><span>Investment Manager</span></div>
+    <div><img src="img/e-omer.jpg" alt="" loading="lazy"><b>Omer Reuveni</b><span>Business Developer</span></div>
+    <div><img src="img/e-jacob.jpg" alt="" loading="lazy"><b>Jacob Covadlo</b><span>Business Developer</span></div>
+    <div><img src="img/e-estefania.jpg" alt="" loading="lazy"><b>Estefanía Villegas</b><span>Rental Manager</span></div>
+    <div><img src="img/e-kristel.jpg" alt="" loading="lazy"><b>Kristel Arana</b><span>Front Office</span></div>
+    <div><img src="img/e-alberto.jpg" alt="" loading="lazy"><b>Dr. Alberto Antolí</b><span>Abogado</span></div>
+    <div><img src="img/e-alvaro.jpg" alt="" loading="lazy"><b>Álvaro Gibernau</b><span>Economista</span></div>
+  </div>
+</div></section>
+
+<section><div class="env">
+  <div class="rot"><i>03</i>En cifras</div>
+  <h2>Nuestra <em>trayectoria</em></h2>
+  <div class="cifras">
+    <div><img src="img/c-360.jpg" alt="" loading="lazy"><div class="cifra">360<small>M€</small></div><div class="etq">Valor de activos</div></div>
+    <div><img src="img/c-200.jpg" alt="" loading="lazy"><div class="cifra">200.000<small>m²</small></div><div class="etq">En activos</div></div>
+    <div><img src="img/c-1500.jpg" alt="" loading="lazy"><div class="cifra">1.500</div><div class="etq">Activos gestionados</div></div>
+    <div><img src="img/c-21.jpg" alt="" loading="lazy"><div class="cifra">21</div><div class="etq">Empresas administradas</div></div>
+    <div><img src="img/c-3.jpg" alt="" loading="lazy"><div class="cifra">3</div><div class="etq">SOCIMIs gestionadas</div></div>
+    <div><img src="img/c-10.jpg" alt="" loading="lazy"><div class="cifra">+10</div><div class="etq">Años en el mercado español</div></div>
+  </div>
+</div></section>
+
+<section><div class="env">
+  <div class="rot"><i>04</i>Referencias</div>
+  <h2>Las marcas que ya <em>crecen</em> con nosotros</h2>
+  <p style="margin-top:14px">Moda, alimentación, fitness, salud, restauración y banca: operadores líderes que confían en nosotros para abrir sus locales.</p>
+  <div class="carril">
+    <div><img src="img/r-bershka.jpg" alt="Tienda Bershka" loading="lazy"><h3>Bershka</h3><div class="etq">Moda</div></div>
+    <div><img src="img/r-synergym.jpg" alt="Gimnasio Synergym" loading="lazy"><h3>Synergym</h3><div class="etq">Fitness</div></div>
+    <div><img src="img/r-vitaldent.jpg" alt="Clínica Vitaldent" loading="lazy"><h3>Vitaldent</h3><div class="etq">Salud dental</div></div>
+    <div><img src="img/r-sirena.jpg" alt="Tienda La Sirena" loading="lazy"><h3>La Sirena</h3><div class="etq">Alimentación</div></div>
+    <div><img src="img/r-365.jpg" alt="Local de 365 Obrador" loading="lazy"><h3>365 Obrador</h3><div class="etq">Restauración</div></div>
+    <div><img src="img/r-dia.jpg" alt="Supermercado Dia" loading="lazy"><h3>Dia</h3><div class="etq">Supermercado</div></div>
+    <div><img src="img/r-carrefour.jpg" alt="Carrefour Express" loading="lazy"><h3>Carrefour</h3><div class="etq">Supermercado</div></div>
+    <div><img src="img/r-bbva.jpg" alt="Oficina BBVA" loading="lazy"><h3>BBVA</h3><div class="etq">Banca</div></div>
+  </div>
+</div></section>
+
+<section><div class="env dos">
+  <div>
+    <div class="rot"><i>05</i>Cartera retail</div>
+    <h2>Una red de locales en toda <em>España</em></h2>
+    <div style="display:flex;gap:36px;margin-top:26px;flex-wrap:wrap">
+      <div><div class="cifra">350</div><div class="etq" style="margin-top:8px">Locales comerciales</div></div>
+      <div><div class="cifra">80.000<small>m²</small></div><div class="etq" style="margin-top:8px">De retail</div></div>
+    </div>
+    <p style="margin-top:22px">Gestionamos una de las carteras de locales más extensas del país. Conocemos de primera mano lo que necesita un operador en cada ubicación.</p>
+  </div>
+  <img src="img/mapa.png" alt="Mapa de España con los locales de la cartera" loading="lazy">
+</div></section>
+
+<section><div class="env">
+  <div class="rot"><i>06</i>Logística</div>
+  <h2>Instalaciones <em>logísticas</em></h2>
+  <p style="margin-top:14px">Naves logísticas, frigoríficas e industriales, con el mismo modelo que en retail: las compramos y os las arrendamos a largo plazo.</p>
+  <div class="carril">
+    <div><img src="img/l-mercedes.jpg" alt="" loading="lazy"><h3>Mercedes Group</h3><div class="etq">Nave logística · Esparraguera</div><div class="cifra" style="font-size:34px;margin-top:10px">13.500<small>m²</small></div></div>
+    <div><img src="img/l-arnas.jpg" alt="" loading="lazy"><h3>Arnas Logística de Frío</h3><div class="etq">Nave frigorífica · Pinto</div><div class="cifra" style="font-size:34px;margin-top:10px">3.000<small>m²</small></div></div>
+    <div><img src="img/l-snop.jpg" alt="" loading="lazy"><h3>Snop SA</h3><div class="etq">Nave industrial · Sta. Margarida i els Monjos</div><div class="cifra" style="font-size:34px;margin-top:10px">5.000<small>m²</small></div></div>
+  </div>
+</div></section>
+
+<section class="osc"><div class="env dos">
+  <div>
+    <div class="rot"><i>07</i>Nuestro modelo</div>
+    <h2>Lo encontramos. Lo compramos. <em>Os lo arrendamos.</em></h2>
+    <p style="margin-top:20px">Somos una PropCo boutique que financia la expansión inmobiliaria de marcas consolidadas mediante el modelo de alquiler llave en mano. <b>Contamos con una red de colaboradores en toda España que nos encuentra producto off-market antes de que llegue al mercado.</b></p>
+    <ol class="pasos">
+      <li><span class="n">01</span><span>Expansión sin capital propio</span></li>
+      <li><span class="n">02</span><span>Sin sobreprecio de marca: compramos a nuestro nombre</span></li>
+      <li><span class="n">03</span><span>Red de colaboradores en toda España con producto off-market</span></li>
+      <li><span class="n">04</span><span>Capital listo para desplegar a escala multi-sede</span></li>
+      <li><span class="n">05</span><span>Renta competitiva sin impactar vuestros márgenes</span></li>
+    </ol>
+  </div>
+  <img src="img/modelo.jpg" alt="Calle comercial con escaparates" loading="lazy">
+</div></section>
+
+<section><div class="env dos">
+  <img src="img/local-vacio.jpg" alt="Local vacío listo para abrir" loading="lazy">
+  <div>
+    <div class="rot"><i>08</i>Fórmulas de colaboración</div>
+    <h2>Tres maneras de crecer <em>juntos</em></h2>
+    <ol class="pasos">
+      <li><span class="n">01</span><div><h3>Os encontramos el local</h3><p>Nos contáis qué buscáis y dónde. Localizamos el local, lo compramos y os lo alquilamos listo para abrir.</p></div></li>
+      <li><span class="n">02</span><div><h3>Sale &amp; Leaseback</h3><p>Os compramos los locales que ya tenéis en propiedad y seguís operando en ellos como inquilinos. <b>Liberáis capital sin mover una tienda.</b></p></div></li>
+      <li><span class="n">03</span><div><h3>Vosotros elegís, nosotros compramos</h3><p>¿Habéis encontrado el local ideal? Nosotros lo compramos y entráis como inquilinos, sin inmovilizar vuestro capital.</p></div></li>
+    </ol>
+  </div>
+</div></section>
+
+<section><div class="env dos">
+  <div>
+    <div class="rot"><i>09</i>Qué buscamos</div>
+    <h2>Marcas consolidadas con un plan de <em>crecimiento</em></h2>
+    <div class="etq" style="margin-top:26px;color:var(--verde)">Sectores</div>
+    <div class="chips"><span>Supermercados y alimentación</span><span>Retail high street</span><span>Banca y servicios</span><span>Restauración</span><span>Salud y fitness</span><span>Logística e industrial</span></div>
+    <div class="etq" style="margin-top:26px;color:var(--verde)">Criterios</div>
+    <ol class="pasos" style="margin-top:10px">
+      <li style="grid-template-columns:120px 1fr"><b>Activos</b><span>Locales, medianas superficies y naves</span></li>
+      <li style="grid-template-columns:120px 1fr"><b>Superficie</b><span>De 350 m² a más de 13.000 m²</span></li>
+      <li style="grid-template-columns:120px 1fr"><b>Ubicación</b><span>Todo el territorio nacional</span></li>
+      <li style="grid-template-columns:120px 1fr"><b>Contrato</b><span>Arrendamiento a largo plazo</span></li>
+    </ol>
+  </div>
+  <img src="img/calle.jpg" alt="Calle comercial con gente paseando" loading="lazy">
+</div></section>
+
+<section class="osc"><div class="env">
+  <div class="rot"><i>10</i>Cómo trabajamos</div>
+  <h2>Así trabajamos con <em>vosotros</em></h2>
+  <ol class="linea">
+    <li><div class="etq">01</div><h3>Vuestro plan</h3><p>Zonas, formatos y calendario de aperturas</p></li>
+    <li><div class="etq">02</div><h3>Nuestra red</h3><p>Colaboradores en toda España buscando producto</p></li>
+    <li><div class="etq">03</div><h3>Selección</h3><p>Analizamos ubicación, tráfico y encaje</p></li>
+    <li><div class="etq">04</div><h3>Compra</h3><p>Estructura legal y adquisición a nuestro nombre</p></li>
+    <li><div class="etq">05</div><h3>Contrato</h3><p>Arrendamiento a largo plazo, a vuestra medida</p></li>
+    <li><div class="etq">06</div><h3>Acompañamiento</h3><p>Un interlocutor directo durante toda la relación</p></li>
+  </ol>
+</div></section>
+
+<section><div class="env">
+  <div class="rot"><i>11</i>Tecnología</div>
+  <h2>Tecnología propia para vuestra <em>expansión</em></h2>
+  <p style="margin-top:16px"><b>Nuestro Radar</b> une inteligencia artificial, los datos públicos de toda España y nuestro equipo en cada zona para encontrar los inmuebles que encajan con vuestra marca, también los que no están a la venta.</p>
+  <img class="portatil" src="img/r_d_marca.jpg" alt="El Radar: lista de inmuebles que encajan con una marca" loading="lazy">
+  <ol class="pasos">
+    <li><span class="n">01</span><div><h3>Todo lo que cumple vuestros criterios</h3><p>Revisa cada parcela, edificio y local de España, esté o no en venta, con los filtros de cada marca.</p>
+      <div class="chips"><span>Metros de parcela y construidos</span><span>Una sola planta</span><span>A pie de calle</span><span>Fachada y frente</span><span>Aparcamiento</span><span>Habitantes a 10–15 min</span><span>Renta</span><span>Uso urbanístico</span><span>Libre u ocupado</span><span>Competencia cerca</span></div></div></li>
+    <li><span class="n">02</span><div><h3>El match con vuestra marca</h3><p>Cruza Catastro, urbanismo, población, renta y competencia y puntúa el encaje de cada inmueble con lo que buscáis.</p></div></li>
+    <li><span class="n">03</span><div><h3>Los portales, cada día</h3><p>Rastrea los portales a diario y avisa de anuncios nuevos y bajadas de precio en vuestras zonas.</p></div></li>
+    <li><span class="n">04</span><div><h3>Salimos a conseguirlas</h3><p>Nuestros colaboradores visitan cada inmueble de su zona y localizan al propietario. No esperamos a que el producto llegue: vamos a por él.</p>
+      <div class="chips"><span>Visita en persona</span><span>Propietario localizado</span><span class="d">Nota simple del Registro</span></div></div></li>
+    <li><span class="n">05</span><div><h3>A vuestra disposición</h3><p>Un perfil privado con las oportunidades y su avance, donde nos decís qué os sirve.</p></div></li>
+  </ol>
+  <div class="capturas">
+    <figure><img src="img/r_m_marca.jpg" alt="Perfil privado de la marca en el móvil" loading="lazy"><figcaption>Vuestro perfil, privado</figcaption></figure>
+    <figure><img src="img/r_m_zona.jpg" alt="App del colaborador de zona" loading="lazy"><figcaption>El colaborador de zona, en su móvil</figcaption></figure>
+    <figure><img src="img/r_encaje.jpg" alt="Puntuación de encaje con la marca" loading="lazy" style="border-radius:8px"><figcaption>El encaje con vuestra marca</figcaption></figure>
+  </div>
+</div></section>
+
+<section class="osc" id="contacto"><div class="env dos">
+  <div>
+    <img src="marca/expand-by-ayalon-negativo.svg" alt="Expand by Ayalon Investments" style="height:64px">
+    <h2 style="margin-top:28px">Hablemos de vuestra próxima <em>apertura</em></h2>
+    <p style="margin-top:16px">Contadnos vuestro plan de expansión y os presentamos activos a medida.</p>
+    
+      <div class="ficha">
+        <div class="ficha-cab"><img class="avatar" src="marca/expand-simbolo.svg" alt=""><div><b>Oficina</b><span>Expand · by Ayalon Investments</span></div></div>
+        <div class="botones">
+          <a class="btn prim" href="tel:+34633644768">Llamar · 633 644 768</a>
+          <a class="btn" href="mailto:office@ayalon-invest.com">Escribir un correo</a>
+        </div>
+      </div>
+    <p style="margin-top:22px;font-size:15px">Oficina: <a href="tel:+34633644768">633 644 768</a> · <a href="mailto:office@ayalon-invest.com">office@ayalon-invest.com</a></p>
+  </div>
+  <img src="img/contacto.jpg" alt="Escaparate iluminado de un local" loading="lazy">
+</div></section>
+</main>
+
+<footer class="pie"><div class="env">
+  <span class="etq" style="color:var(--menta)">Partnering for Growth</span>
+  <img src="marca/expand-by-ayalon-negativo.svg" alt="Expand by Ayalon Investments" style="height:44px">
+</div></footer>
+</body></html>
