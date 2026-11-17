@@ -73,7 +73,8 @@ body{margin:0;-webkit-text-size-adjust:100%}
 .w-btn.w-prim{background:var(--menta);color:var(--noche)}
 .w-btn:focus-visible,.w-pdf:focus-visible{outline:3px solid #F7F2E8;outline-offset:2px}
 .w-aviso{font-family:"Sans",sans-serif;font-size:13px;letter-spacing:.06em;color:#8EA3B5;text-align:center;padding:22px 0 14px;margin:0}
-.w-hojas{display:grid;gap:18px;padding-bottom:30px}
+.w-hojas{display:grid;gap:18px;padding:18px 0 calc(18px + env(safe-area-inset-bottom,0px))}
+.w-con-barra .w-hojas{padding-bottom:calc(96px + env(safe-area-inset-bottom,0px))}
 .w-hoja{position:relative;width:100%;aspect-ratio:2048/1360;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.35);background:#EDECE3}
 .w-hoja>.pag{position:absolute;left:0;top:0;transform-origin:0 0}
 .w-pie{font-family:"Sans",sans-serif;font-size:13px;color:#8EA3B5;text-align:center;padding:10px 0 calc(96px + env(safe-area-inset-bottom,0px));margin:0}
@@ -83,17 +84,16 @@ body{margin:0;-webkit-text-size-adjust:100%}
   .w-ficha .w-env{grid-template-columns:1fr auto;align-items:center}
   .w-ficha .w-botones{grid-template-columns:repeat(4,auto)}
   .w-barra{display:none}
-  .w-pie{padding-bottom:40px}
-  .w-hojas{gap:28px}
+  .w-hojas{gap:28px;padding-top:28px}
+  .w-con-barra .w-hojas{padding-bottom:28px}
 }
 </style>
 </head>
-<body>
+<body class="w-con-barra">
 <header class="w-cab"><div class="w-env">
   <img src="../marca/expand-by-ayalon-negativo.svg" alt="Expand by Ayalon Investments">
   <a class="w-pdf" href="../expand-dossier.pdf" download>Descargar PDF</a>
 </div></header>
-
 <section class="w-ficha"><div class="w-env">
   <div class="w-quien"><img src="../img/e-omer.jpg" alt="Omer Reuveni">
     <div><div class="w-et">Os atiende</div><div class="w-nom">Omer Reuveni</div><div class="w-car">Business Developer</div>
@@ -105,9 +105,7 @@ body{margin:0;-webkit-text-size-adjust:100%}
     <a class="w-btn" href="omer.vcf">Guardar contacto</a>
   </div>
 </div></section>
-
 <main class="w-env">
-  <p class="w-aviso">Dossier para marcas · 13 páginas · pellizca o gira el móvil para ampliar</p>
   <div class="w-hojas">
     <div class="w-hoja"><section class="pag">
   <img src="../marca/expand-by-ayalon.svg" style="position:absolute;left:78px;top:92px;height:150px">
@@ -365,7 +363,6 @@ body{margin:0;-webkit-text-size-adjust:100%}
   <div class="pie" style="left:916px;top:1232px;letter-spacing:.06em;color:var(--menta)">Partnering for Growth</div>
 </section></div>
   </div>
-  <p class="w-pie">Expand · by Ayalon Investments · Partnering for Growth</p>
 </main>
 <nav class="w-barra" aria-label="Contactar con Omer Reuveni"><div class="w-botones">
   <a class="w-btn w-prim" href="tel:+34691339882">Llamar a Omer</a>
