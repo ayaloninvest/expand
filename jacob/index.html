@@ -12,359 +12,378 @@
 <meta name="theme-color" content="#0B2238">
 <link rel="icon" href="../marca/expand-simbolo.svg">
 <style>
-/* Expand · dossier web. Primero el móvil (375 px); en ordenador se abre a dos columnas. */
-@font-face{font-family:"Serif";src:url("../fonts/DMSerifDisplay-Regular.ttf");font-display:swap}
-@font-face{font-family:"Sans";src:url("../fonts/Figtree.ttf");font-weight:300 900;font-display:swap}
+/* ---- Estilos del dossier (copiados de dossier.html al generar: no tocar aquí) ---- */
+
+/* Dossier de Expand: el diseño del dossier original de Ayalon (DM Serif Display + Figtree, papel crema,
+   paneles oscuros) con el logo y los colores de Expand. Páginas de 2048 × 1360 px. */
+@font-face{font-family:"Serif";src:url("../fonts/DMSerifDisplay-Regular.ttf")}
+@font-face{font-family:"Sans";src:url("../fonts/Figtree.ttf");font-weight:300 900}
 :root{
-  --papel:#EDECE3; --blanco:#FFFFFF; --tinta:#141414; --texto:#0B6B57; --noche:#0B2238; --verde:#0B6B57;
-  --menta:#2FBF8A; --suave:#BFDDD2; --gris:#5B6772; --crema:#F7F2E8; --linea:#BFD3CA; --linea-osc:#253A50;
-  --lado:max(20px, env(safe-area-inset-left, 0px));
+  --tinta:#0B2238;   /* títulos: azul noche de Expand */
+  --texto:#0B6B57;   /* texto: verde de Expand (en el original, azul) */
+  --linea:#7FAE9F;   /* líneas finas */
+  --noche:#0B2238; --menta:#2FBF8A; --crema:#F2F0E6; --suave:#BFDDD2;
 }
-*{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
-body{background:var(--papel) url("../img/papel.png");color:var(--texto);font-family:"Sans",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:17px;line-height:1.55}
-img{max-width:100%;display:block}
-a{color:inherit}
-.env{max-width:1120px;margin:0 auto;padding-left:var(--lado);padding-right:max(20px, env(safe-area-inset-right, 0px))}
-
-/* cabecera fija */
-.cab{position:sticky;top:0;z-index:20;background:rgba(237,236,227,.94);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);border-bottom:1px solid var(--linea);padding-top:env(safe-area-inset-top,0px)}
-.cab .env{display:flex;align-items:center;justify-content:space-between;height:60px;gap:12px}
-.cab img{height:38px}
-.cab a.btn{min-height:40px;padding:0 16px;font-size:15px}
-
-/* botones (se usan con el dedo: 48 px de alto) */
-.btn{display:inline-flex;align-items:center;justify-content:center;min-height:48px;padding:0 18px;border:1.5px solid var(--verde);color:var(--verde);background:transparent;font-weight:600;font-size:16px;text-decoration:none;border-radius:2px;text-align:center}
-.btn.prim{background:var(--verde);color:#fff}
-.btn:active{transform:translateY(1px)}
-.btn:focus-visible{outline:3px solid var(--menta);outline-offset:2px}
-
-/* tipografía */
-.rot{display:flex;align-items:center;gap:10px;font-size:13px;font-weight:500;letter-spacing:.24em;text-transform:uppercase;color:var(--noche);padding-bottom:14px;border-bottom:1px solid var(--linea)}
-.rot i{font-style:normal}
-.rot i::after{content:"•";margin-left:10px}
-h1,h2{font-family:"Serif";font-weight:400;letter-spacing:-.02em;line-height:1.0;color:var(--noche);text-wrap:balance}
-h1{font-size:clamp(40px,10vw,76px)}
-h2{font-size:clamp(36px,8.4vw,64px);margin-top:22px}
-h1 em,h2 em{font-style:normal}
-h3{font-family:"Serif";font-weight:400;font-size:25px;line-height:1.1;color:var(--noche)}
-.etq{font-size:12px;font-weight:500;letter-spacing:.18em;text-transform:uppercase;color:var(--verde)}
-p+p{margin-top:14px}
-.lead{font-size:19px}
-b{font-weight:700}
+@page{size:2048px 1360px;margin:0}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{background:#777}
+body{font-family:"Sans";color:var(--texto);-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.pag{width:2048px;height:1360px;position:relative;overflow:hidden;background:#EDECE3 url("../img/papel.png");break-after:page}
 .osc{background:var(--noche);color:#D3E0DA}
-.osc h1,.osc h2,.osc h3,.osc b{color:var(--crema)}
-.osc .rot{color:#E6ECE8;border-color:rgba(214,226,220,.3)} .osc .etq{color:#B9CCC4}
+.osc::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 30% 35%,rgba(47,191,138,.07),rgba(47,191,138,0) 60%);pointer-events:none}
+.foto{position:absolute;object-fit:cover;display:block}
 
-section{padding:64px 0}
-section+section{border-top:1px solid var(--linea)}
-section.osc{border-top:0}
-.dos{display:grid;gap:28px}
-.cifra{font-family:"Serif";font-weight:400;font-size:50px;line-height:1;letter-spacing:-.015em;color:var(--noche)}
-.cifra small{font-size:.48em;margin-left:3px}
-.osc .cifra{color:var(--crema)}
+.rotulo{position:absolute;font-size:22px;letter-spacing:.26em;font-weight:500;color:var(--tinta);white-space:nowrap;text-transform:uppercase}
+.osc .rotulo{color:#E6ECE8}
+.raya{position:absolute;height:1.5px;background:var(--linea);opacity:.85}
+.osc .raya{background:rgba(214,226,220,.35);opacity:1}
+h1{position:absolute;font-family:"Serif";font-weight:400;line-height:1.0;letter-spacing:-.02em;color:var(--tinta)}
+.osc h1{color:#F7F2E8}
+.p{position:absolute;font-size:30px;line-height:1.62}
+.p b{font-weight:700}
+.osc .p b{color:#F7F2E8}
+.serif{font-family:"Serif";font-weight:400;color:var(--tinta);letter-spacing:-.015em;line-height:1}
+.osc .serif{color:#F7F2E8}
+.caps{font-size:18px;letter-spacing:.2em;text-transform:uppercase;font-weight:500;color:var(--texto)}
+.osc .caps{color:#B9CCC4}
+.pie{position:absolute;font-size:20px;letter-spacing:.08em;font-weight:500;color:var(--tinta)}
+.pie i{font-style:normal;color:var(--texto)}
+.osc .pie{color:#E6ECE8} .osc .pie i{color:var(--menta)}
+.n{position:absolute;font-size:20px;letter-spacing:.08em;font-weight:500;color:var(--tinta)}
+.osc .n{color:#E6ECE8}
 
-/* portada */
-.portada{padding:0}
-.portada .foto{width:100%;aspect-ratio:4/3;object-fit:cover}
-.portada .env{padding-top:30px;padding-bottom:40px}
-.by{display:flex;align-items:center;gap:10px;font-size:14px;color:var(--gris);margin-bottom:22px}
-.by img{height:34px}
-.portada p.lead{margin-top:16px}
-
-/* ficha de contacto */
-.ficha{margin-top:28px;background:rgba(255,255,255,.6);border:1px solid var(--linea);padding:18px}
-.ficha-cab{display:flex;align-items:center;gap:14px}
-.ficha-cab .avatar{width:64px;height:64px;object-fit:cover;object-position:50% 18%;border-radius:50%;background:var(--papel)}
-.ficha-cab b{display:block;font-family:"Serif";font-weight:400;font-size:24px;color:var(--noche)}
-.ficha-cab span{font-size:14px;color:var(--gris)}
-.botones{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:16px}
-.datos{margin-top:12px;font-size:14px;color:var(--gris);overflow-wrap:anywhere}
-.osc .ficha{background:#11294A;border-color:var(--linea-osc)}
-.osc .ficha-cab span,.osc .datos{color:#A9B8C6}
-.osc .btn{border-color:var(--menta);color:var(--menta)} .osc .btn.prim{background:var(--menta);color:var(--noche)}
-.pdf{margin-top:12px;width:100%}
-
-/* equipo */
-.socios{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:28px}
-.socios img{aspect-ratio:4/5;object-fit:cover;object-position:50% 18%;width:100%}
-.socios h3{margin-top:12px}
-.equipo{display:grid;grid-template-columns:repeat(3,1fr);gap:14px 10px;margin-top:22px}
-.equipo img{aspect-ratio:4/5;object-fit:cover;object-position:50% 15%;width:100%}
-.equipo b{display:block;font-family:"Serif";font-weight:400;font-size:17px;color:var(--noche);margin-top:8px;line-height:1.15}
-.equipo span{display:block;font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--verde);margin-top:3px}
-
-/* cifras */
-.cifras{display:grid;grid-template-columns:1fr 1fr;gap:22px 14px;margin-top:28px}
-.cifras img{aspect-ratio:16/10;object-fit:cover;width:100%;margin-bottom:12px}
-.cifras .etq{margin-top:8px}
-
-/* referencias: carrusel con el dedo */
-.carril{display:grid;grid-auto-flow:column;grid-auto-columns:72%;gap:12px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:24px;padding-bottom:8px;-webkit-overflow-scrolling:touch}
-.carril>*{scroll-snap-align:start}
-.carril img{aspect-ratio:3/2;object-fit:cover;width:100%}
-.carril h3{margin-top:10px}
-
-/* listas numeradas */
-.pasos{margin-top:26px;border-top:1px solid var(--linea)}
-.pasos li{list-style:none;display:grid;grid-template-columns:56px 1fr;padding:18px 0;border-bottom:1px solid var(--linea)}
-.pasos .n{font-family:"Serif";font-size:36px;line-height:1;color:var(--noche)}
-.pasos p{margin-top:6px}
-.osc .pasos,.osc .pasos li{border-color:var(--linea-osc)} .osc .pasos .n{color:var(--menta)}
-
-/* cómo trabajamos: línea vertical con cuadrados */
-.linea{margin-top:28px;position:relative;padding-left:34px}
-.linea::before{content:"";position:absolute;left:6px;top:8px;bottom:8px;width:2px;background:var(--linea-osc)}
-.linea li{list-style:none;position:relative;padding-bottom:24px}
-.linea li::before{content:"";position:absolute;left:-34px;top:6px;width:14px;height:14px;background:var(--menta)}
-.linea li:nth-child(-n+2)::before{background:var(--suave)}
-.linea .etq{color:var(--menta)}
-
-.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px}
-.chips span{font-size:14px;padding:7px 12px;border:1px solid var(--linea);border-radius:999px;background:rgba(255,255,255,.55);color:var(--noche)}
-.chips span.d{background:var(--verde);border-color:var(--verde);color:#fff}
-
-.capturas{display:grid;grid-auto-flow:column;grid-auto-columns:62%;gap:14px;overflow-x:auto;scroll-snap-type:x mandatory;margin-top:24px;padding-bottom:8px}
-.capturas figure{scroll-snap-align:start}
-.capturas img{width:100%;border-radius:14px;box-shadow:0 14px 30px rgba(11,34,56,.18)}
-.capturas figcaption{font-size:13px;color:var(--gris);margin-top:10px}
-.portatil{margin-top:24px;border:10px solid #0b0f1e;border-radius:14px 14px 4px 4px;box-shadow:0 18px 40px rgba(11,34,56,.25)}
-
-.pie{padding:36px 0 calc(36px + env(safe-area-inset-bottom,0px));background:var(--noche);color:#8EA3B5;font-size:14px;border-top:1px solid var(--linea-osc)}
-.pie .env{display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap}
-.pie img{height:40px}
-
-@media (min-width:860px){
-  body{font-size:18px}
-  section{padding:96px 0}
-  .portada{display:grid;grid-template-columns:1fr 1fr;align-items:stretch}
-  .portada .foto{aspect-ratio:auto;height:100%;max-height:820px;order:2}
-  .portada .env{padding:64px 56px;max-width:none}
-  .dos{grid-template-columns:1fr 1fr;gap:56px;align-items:center}
-  .equipo{grid-template-columns:repeat(7,1fr)}
-  .cifras{grid-template-columns:repeat(3,1fr);gap:36px 28px}
-  .cifra{font-size:60px}
-  .carril{grid-auto-flow:row;grid-template-columns:repeat(4,1fr);overflow:visible}
-  .capturas{grid-auto-columns:30%}
-  .botones{grid-template-columns:repeat(4,auto);justify-content:start}
+/* ---- Visor: el dossier tal cual, página a página, con la ficha de contacto encima ---- */
+html,body{background:#0E1A26 !important}
+body{margin:0;-webkit-text-size-adjust:100%}
+.w-env{max-width:1240px;margin:0 auto;padding-left:max(14px,env(safe-area-inset-left,0px));padding-right:max(14px,env(safe-area-inset-right,0px))}
+.w-cab{background:var(--noche);border-bottom:1px solid rgba(214,226,220,.18);padding-top:env(safe-area-inset-top,0px)}
+.w-cab .w-env{display:flex;align-items:center;justify-content:space-between;gap:14px;min-height:76px}
+.w-cab img{height:46px;display:block}
+.w-pdf{font-family:"Sans",sans-serif;font-size:14px;font-weight:600;color:var(--menta);text-decoration:none;border:1.5px solid var(--menta);padding:10px 14px;white-space:nowrap}
+.w-ficha{background:var(--noche);color:#D3E0DA;font-family:"Sans",sans-serif;padding:28px 0 34px}
+.w-ficha .w-env{display:grid;gap:22px}
+.w-quien{display:flex;align-items:center;gap:18px}
+.w-quien img{width:84px;height:84px;border-radius:50%;object-fit:cover;object-position:50% 20%;flex:none;background:#11294A}
+.w-et{font-size:12px;letter-spacing:.24em;text-transform:uppercase;font-weight:500;color:#B9CCC4}
+.w-nom{font-family:"Serif",Georgia,serif;font-size:34px;line-height:1.05;color:#F7F2E8;margin-top:6px}
+.w-car{font-size:13px;letter-spacing:.16em;text-transform:uppercase;color:var(--menta);margin-top:6px}
+.w-datos{font-size:16px;line-height:1.6;color:#D3E0DA;overflow-wrap:anywhere;margin-top:8px}
+.w-botones{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.w-btn{display:flex;align-items:center;justify-content:center;min-height:50px;padding:0 16px;font-family:"Sans",sans-serif;font-size:16px;font-weight:600;text-decoration:none;border:1.5px solid var(--menta);color:var(--menta);text-align:center}
+.w-btn.w-prim{background:var(--menta);color:var(--noche)}
+.w-btn:focus-visible,.w-pdf:focus-visible{outline:3px solid #F7F2E8;outline-offset:2px}
+.w-aviso{font-family:"Sans",sans-serif;font-size:13px;letter-spacing:.06em;color:#8EA3B5;text-align:center;padding:22px 0 14px;margin:0}
+.w-hojas{display:grid;gap:18px;padding-bottom:30px}
+.w-hoja{position:relative;width:100%;aspect-ratio:2048/1360;overflow:hidden;box-shadow:0 10px 30px rgba(0,0,0,.35);background:#EDECE3}
+.w-hoja>.pag{position:absolute;left:0;top:0;transform-origin:0 0}
+.w-pie{font-family:"Sans",sans-serif;font-size:13px;color:#8EA3B5;text-align:center;padding:10px 0 calc(96px + env(safe-area-inset-bottom,0px));margin:0}
+.w-barra{position:fixed;left:0;right:0;bottom:0;z-index:5;background:rgba(11,34,56,.96);border-top:1px solid rgba(214,226,220,.18);padding:10px max(14px,env(safe-area-inset-left,0px)) calc(10px + env(safe-area-inset-bottom,0px))}
+.w-barra .w-botones{max-width:520px;margin:0 auto}
+@media (min-width:820px){
+  .w-ficha .w-env{grid-template-columns:1fr auto;align-items:center}
+  .w-ficha .w-botones{grid-template-columns:repeat(4,auto)}
+  .w-barra{display:none}
+  .w-pie{padding-bottom:40px}
+  .w-hojas{gap:28px}
 }
-@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
 </style>
 </head>
 <body>
-
-<header class="cab"><div class="env">
-  <img src="../marca/expand-by-ayalon.svg" alt="Expand by Ayalon Investments">
-  <a class="btn prim" href="#contacto">Os atiende Jacob</a>
+<header class="w-cab"><div class="w-env">
+  <img src="../marca/expand-by-ayalon-negativo.svg" alt="Expand by Ayalon Investments">
+  <a class="w-pdf" href="../expand-dossier.pdf" download>Descargar PDF</a>
 </div></header>
 
-<main>
-<section class="portada">
-  <img class="foto" src="../img/portada.jpg" alt="Local comercial en esquina con escaparate">
-  <div class="env">
-        <h1>Vuestra expansión, nuestro <em>compromiso</em></h1>
-    <p class="lead">Un socio cercano para vuestro plan de expansión, de la búsqueda del local a la apertura.</p>
-    
-      <div class="ficha">
-        <div class="ficha-cab"><img class="avatar" src="../img/e-jacob.jpg" alt="Jacob Covadlo"><div><b>Jacob Covadlo</b><span>Business Developer</span></div></div>
-        <div class="botones">
-          <a class="btn prim" href="tel:+34603833422">Llamar</a>
-          <a class="btn prim" href="https://wa.me/34603833422">WhatsApp</a>
-          <a class="btn" href="mailto:jacob@ayalon-invest.com">Correo</a>
-          <a class="btn" href="jacob.vcf">Guardar contacto</a>
-        </div>
-        <div class="datos">603 833 422 · jacob@ayalon-invest.com</div>
-      </div>
-    <a class="btn pdf" href="../expand-dossier.pdf" download>Descargar el dossier en PDF</a>
-  </div>
-</section>
-
-<section><div class="env dos">
-  <div>
-    <div class="rot"><i>01</i>Sobre nosotros</div>
-    <h2>Partners de las marcas en su <em>expansión</em></h2>
-    <p style="margin-top:20px">Colaboramos con los operadores más relevantes del mercado español como un socio más de su plan de expansión: entendemos su negocio, sus plazos y lo que necesita cada apertura.</p>
-    <p>Somos un equipo boutique, con un trato cercano y personalizado. Cada operador tiene un <b>interlocutor directo</b> que le acompaña desde la búsqueda del local hasta la firma, y durante toda la relación.</p>
-    <p><b>Expand</b> es el área de expansión de Ayalon Investments: el fondo compra los locales y os los alquila, y nuestro equipo os acompaña en cada apertura.</p>
-  </div>
-  <img src="../img/reunion.jpg" alt="El equipo reunido con una marca" loading="lazy">
-</div></section>
-
-<section><div class="env">
-  <div class="rot"><i>02</i>Equipo</div>
-  <h2>Las personas detrás de cada <em>apertura</em></h2>
-  <div class="socios">
-    <div><img src="../img/e-guy.jpg" alt="Guy Ayalon" loading="lazy"><h3>Guy Ayalon</h3><div class="etq">CEO · Socio fundador</div></div>
-    <div><img src="../img/e-nir.jpg" alt="Nir Ayalon" loading="lazy"><h3>Nir Ayalon</h3><div class="etq">Partner &amp; Managing Director</div></div>
-  </div>
-  <div class="equipo">
-    <div><img src="../img/e-jaime.jpg" alt="" loading="lazy"><b>Jaime Pons</b><span>Investment Manager</span></div>
-    <div><img src="../img/e-omer.jpg" alt="" loading="lazy"><b>Omer Reuveni</b><span>Business Developer</span></div>
-    <div><img src="../img/e-jacob.jpg" alt="" loading="lazy"><b>Jacob Covadlo</b><span>Business Developer</span></div>
-    <div><img src="../img/e-estefania.jpg" alt="" loading="lazy"><b>Estefanía Villegas</b><span>Rental Manager</span></div>
-    <div><img src="../img/e-kristel.jpg" alt="" loading="lazy"><b>Kristel Arana</b><span>Front Office</span></div>
-    <div><img src="../img/e-alberto.jpg" alt="" loading="lazy"><b>Dr. Alberto Antolí</b><span>Abogado</span></div>
-    <div><img src="../img/e-alvaro.jpg" alt="" loading="lazy"><b>Álvaro Gibernau</b><span>Economista</span></div>
+<section class="w-ficha"><div class="w-env">
+  <div class="w-quien"><img src="../img/e-jacob.jpg" alt="Jacob Covadlo">
+    <div><div class="w-et">Os atiende</div><div class="w-nom">Jacob Covadlo</div><div class="w-car">Business Developer</div>
+    <div class="w-datos">603 833 422<br>jacob@ayalon-invest.com</div></div></div>
+  <div class="w-botones">
+    <a class="w-btn w-prim" href="tel:+34603833422">Llamar</a>
+    <a class="w-btn w-prim" href="https://wa.me/34603833422">WhatsApp</a>
+    <a class="w-btn" href="mailto:jacob@ayalon-invest.com">Correo</a>
+    <a class="w-btn" href="jacob.vcf">Guardar contacto</a>
   </div>
 </div></section>
 
-<section><div class="env">
-  <div class="rot"><i>03</i>En cifras</div>
-  <h2>Nuestra <em>trayectoria</em></h2>
-  <div class="cifras">
-    <div><img src="../img/c-360.jpg" alt="" loading="lazy"><div class="cifra">360<small>M€</small></div><div class="etq">Valor de activos</div></div>
-    <div><img src="../img/c-200.jpg" alt="" loading="lazy"><div class="cifra">200.000<small>m²</small></div><div class="etq">En activos</div></div>
-    <div><img src="../img/c-1500.jpg" alt="" loading="lazy"><div class="cifra">1.500</div><div class="etq">Activos gestionados</div></div>
-    <div><img src="../img/c-21.jpg" alt="" loading="lazy"><div class="cifra">21</div><div class="etq">Empresas administradas</div></div>
-    <div><img src="../img/c-3.jpg" alt="" loading="lazy"><div class="cifra">3</div><div class="etq">SOCIMIs gestionadas</div></div>
-    <div><img src="../img/c-10.jpg" alt="" loading="lazy"><div class="cifra">+10</div><div class="etq">Años en el mercado español</div></div>
+<main class="w-env">
+  <p class="w-aviso">Dossier para marcas · 13 páginas · pellizca o gira el móvil para ampliar</p>
+  <div class="w-hojas">
+    <div class="w-hoja"><section class="pag">
+  <img src="../marca/expand-by-ayalon.svg" style="position:absolute;left:78px;top:92px;height:150px">
+  <div class="raya" style="left:78px;top:432px;width:868px"></div>
+  <h1 style="left:78px;top:504px;font-size:104px;line-height:1.02">Vuestra expansión,<br>nuestro<br>compromiso</h1>
+  <p class="p" style="left:78px;top:920px;width:860px;font-size:31px;line-height:1.55">Un socio cercano para vuestro plan de expansión,<br>de la búsqueda del local a la apertura.</p>
+  <div class="raya" style="left:78px;top:1196px;width:868px"></div>
+  <div class="pie" style="left:78px;top:1236px;letter-spacing:.06em;color:var(--texto)">Partnering for Growth</div>
+  <img class="foto" src="../img/portada.jpg" style="left:1016px;top:0;width:1032px;height:1360px">
+</section></div>
+    <div class="w-hoja"><section class="pag">
+  <div class="rotulo" style="left:74px;top:178px">01 &nbsp;•&nbsp; Sobre nosotros</div>
+  <div class="raya" style="left:74px;top:230px;width:870px"></div>
+  <h1 style="left:74px;top:288px;font-size:122px;line-height:.96">Partners de las<br>marcas en su<br>expansión</h1>
+  <p class="p" style="left:74px;top:690px;width:880px">Colaboramos con los operadores más relevantes del mercado español como un socio más de su plan de expansión: entendemos su negocio, sus plazos y lo que necesita cada apertura.</p>
+  <p class="p" style="left:74px;top:930px;width:880px">Somos un equipo boutique, con un trato cercano y personalizado. Cada operador tiene un interlocutor directo que le acompaña desde la búsqueda del local hasta la firma, y durante toda la relación.</p>
+  <img loading="lazy" class="foto" src="../img/reunion.jpg" style="left:1010px;top:290px;width:970px;height:842px">
+  <div class="raya" style="left:74px;top:1196px;width:870px"></div>
+  <div class="pie" style="left:74px;top:1236px">Expand <i>·</i> by Ayalon Investments</div>
+  <div class="n" style="left:906px;top:1236px">02</div>
+</section></div>
+    <div class="w-hoja"><section class="pag">
+  <div class="rotulo" style="left:80px;top:86px">02 &nbsp;•&nbsp; Equipo</div>
+  <div class="raya" style="left:80px;top:136px;width:1888px"></div>
+  <h1 style="left:80px;top:205px;font-size:124px;line-height:.98">Las personas<br>detrás de cada<br>apertura</h1>
+  <figure style="position:absolute;left:932px;top:186px;width:474px">
+    <img loading="lazy" src="../img/e-guy.jpg" style="width:474px;height:440px;object-fit:cover;object-position:50% 25%;display:block">
+    <div class="serif" style="font-size:44px;margin-top:22px">Guy Ayalon</div><div class="caps" style="margin-top:10px;letter-spacing:.14em">CEO · Socio fundador</div>
+  </figure>
+  <figure style="position:absolute;left:1452px;top:186px;width:474px">
+    <img loading="lazy" src="../img/e-nir.jpg" style="width:474px;height:440px;object-fit:cover;object-position:50% 25%;display:block">
+    <div class="serif" style="font-size:44px;margin-top:22px">Nir Ayalon</div><div class="caps" style="margin-top:10px;letter-spacing:.14em">Partner &amp; Managing Director</div>
+  </figure>
+  <div style="position:absolute;left:80px;top:810px;width:1888px;display:grid;grid-template-columns:repeat(7,1fr);gap:26px">
+    <figure><img loading="lazy" src="../img/e-jaime.jpg" style="width:100%;height:268px;object-fit:cover;object-position:50% 18%;display:block"><div class="serif" style="font-size:31px;margin-top:16px">Jaime Pons</div><div class="caps" style="font-size:15px;letter-spacing:.1em;margin-top:8px">Investment Manager</div></figure>
+    <figure><img loading="lazy" src="../img/e-omer.jpg" style="width:100%;height:268px;object-fit:cover;object-position:50% 18%;display:block"><div class="serif" style="font-size:31px;margin-top:16px">Omer Reuveni</div><div class="caps" style="font-size:15px;letter-spacing:.1em;margin-top:8px">Business Developer</div></figure>
+    <figure><img loading="lazy" src="../img/e-jacob.jpg" style="width:100%;height:268px;object-fit:cover;object-position:50% 18%;display:block"><div class="serif" style="font-size:31px;margin-top:16px">Jacob Covadlo</div><div class="caps" style="font-size:15px;letter-spacing:.1em;margin-top:8px">Business Developer</div></figure>
+    <figure><img loading="lazy" src="../img/e-estefania.jpg" style="width:100%;height:268px;object-fit:cover;object-position:50% 18%;display:block"><div class="serif" style="font-size:31px;margin-top:16px">Estefanía Villegas</div><div class="caps" style="font-size:15px;letter-spacing:.1em;margin-top:8px">Rental Manager</div></figure>
+    <figure><img loading="lazy" src="../img/e-kristel.jpg" style="width:100%;height:268px;object-fit:cover;object-position:50% 18%;display:block"><div class="serif" style="font-size:31px;margin-top:16px">Kristel Arana</div><div class="caps" style="font-size:15px;letter-spacing:.1em;margin-top:8px">Front Office</div></figure>
+    <figure><img loading="lazy" src="../img/e-alberto.jpg" style="width:100%;height:268px;object-fit:cover;object-position:50% 18%;display:block"><div class="serif" style="font-size:31px;margin-top:16px">Dr. Alberto Antolí</div><div class="caps" style="font-size:15px;letter-spacing:.1em;margin-top:8px">Abogado</div></figure>
+    <figure><img loading="lazy" src="../img/e-alvaro.jpg" style="width:100%;height:268px;object-fit:cover;object-position:50% 18%;display:block"><div class="serif" style="font-size:31px;margin-top:16px">Álvaro Gibernau</div><div class="caps" style="font-size:15px;letter-spacing:.1em;margin-top:8px">Economista</div></figure>
   </div>
-</div></section>
-
-<section><div class="env">
-  <div class="rot"><i>04</i>Referencias</div>
-  <h2>Las marcas que ya <em>crecen</em> con nosotros</h2>
-  <p style="margin-top:14px">Moda, alimentación, fitness, salud, restauración y banca: operadores líderes que confían en nosotros para abrir sus locales.</p>
-  <div class="carril">
-    <div><img src="../img/r-bershka.jpg" alt="Tienda Bershka" loading="lazy"><h3>Bershka</h3><div class="etq">Moda</div></div>
-    <div><img src="../img/r-synergym.jpg" alt="Gimnasio Synergym" loading="lazy"><h3>Synergym</h3><div class="etq">Fitness</div></div>
-    <div><img src="../img/r-vitaldent.jpg" alt="Clínica Vitaldent" loading="lazy"><h3>Vitaldent</h3><div class="etq">Salud dental</div></div>
-    <div><img src="../img/r-sirena.jpg" alt="Tienda La Sirena" loading="lazy"><h3>La Sirena</h3><div class="etq">Alimentación</div></div>
-    <div><img src="../img/r-365.jpg" alt="Local de 365 Obrador" loading="lazy"><h3>365 Obrador</h3><div class="etq">Restauración</div></div>
-    <div><img src="../img/r-dia.jpg" alt="Supermercado Dia" loading="lazy"><h3>Dia</h3><div class="etq">Supermercado</div></div>
-    <div><img src="../img/r-carrefour.jpg" alt="Carrefour Express" loading="lazy"><h3>Carrefour</h3><div class="etq">Supermercado</div></div>
-    <div><img src="../img/r-bbva.jpg" alt="Oficina BBVA" loading="lazy"><h3>BBVA</h3><div class="etq">Banca</div></div>
+  <div class="raya" style="left:80px;top:1250px;width:1888px"></div>
+  <div class="pie" style="left:80px;top:1284px">Expand <i>·</i> by Ayalon Investments</div>
+  <div class="n" style="left:1930px;top:1284px">03</div>
+</section></div>
+    <div class="w-hoja"><section class="pag">
+  <div class="rotulo" style="left:84px;top:62px">03 &nbsp;•&nbsp; En cifras</div>
+  <div class="raya" style="left:420px;top:76px;width:1544px"></div>
+  <h1 style="left:84px;top:104px;font-size:112px">Nuestra trayectoria</h1>
+  <div style="position:absolute;left:86px;top:261px;width:1878px;display:grid;grid-template-columns:repeat(3,1fr);column-gap:52px;row-gap:56px">
+    <div style="border-right:1.5px solid rgba(127,174,159,.5);padding-right:26px;margin-right:-26px"><img loading="lazy" src="../img/c-360.jpg" style="width:100%;height:318px;object-fit:cover;display:block"><div class="serif" style="font-size:104px;margin-top:22px">360<span style="font-size:.6em">M€</span></div><div class="caps" style="margin-top:12px">Valor de activos</div></div>
+    <div style="border-right:1.5px solid rgba(127,174,159,.5);padding-right:26px;margin-right:-26px"><img loading="lazy" src="../img/c-200.jpg" style="width:100%;height:318px;object-fit:cover;display:block"><div class="serif" style="font-size:104px;margin-top:22px">200.000 m²</div><div class="caps" style="margin-top:12px">En activos</div></div>
+    <div><img loading="lazy" src="../img/c-1500.jpg" style="width:100%;height:318px;object-fit:cover;display:block"><div class="serif" style="font-size:104px;margin-top:22px">1.500</div><div class="caps" style="margin-top:12px">Activos gestionados</div></div>
+    <div style="border-right:1.5px solid rgba(127,174,159,.5);padding-right:26px;margin-right:-26px"><img loading="lazy" src="../img/c-21.jpg" style="width:100%;height:270px;object-fit:cover;display:block"><div class="serif" style="font-size:104px;margin-top:22px">21</div><div class="caps" style="margin-top:12px">Empresas administradas</div></div>
+    <div style="border-right:1.5px solid rgba(127,174,159,.5);padding-right:26px;margin-right:-26px"><img loading="lazy" src="../img/c-3.jpg" style="width:100%;height:270px;object-fit:cover;display:block"><div class="serif" style="font-size:104px;margin-top:22px">3</div><div class="caps" style="margin-top:12px">SOCIMIs gestionadas</div></div>
+    <div><img loading="lazy" src="../img/c-10.jpg" style="width:100%;height:270px;object-fit:cover;display:block"><div class="serif" style="font-size:104px;margin-top:22px">+10</div><div class="caps" style="margin-top:12px;line-height:1.5">Años en el mercado<br>español</div></div>
   </div>
-</div></section>
-
-<section><div class="env dos">
-  <div>
-    <div class="rot"><i>05</i>Cartera retail</div>
-    <h2>Una red de locales en toda <em>España</em></h2>
-    <div style="display:flex;gap:36px;margin-top:26px;flex-wrap:wrap">
-      <div><div class="cifra">350</div><div class="etq" style="margin-top:8px">Locales comerciales</div></div>
-      <div><div class="cifra">80.000<small>m²</small></div><div class="etq" style="margin-top:8px">De retail</div></div>
+  <div class="raya" style="left:86px;top:1290px;width:1878px"></div>
+  <div class="pie" style="left:86px;top:1310px;font-size:18px">Expand <i>·</i> by Ayalon Investments</div>
+  <div class="n" style="left:1926px;top:1310px;font-size:18px">04</div>
+</section></div>
+    <div class="w-hoja"><section class="pag">
+  <div class="rotulo" style="left:72px;top:64px">04 &nbsp;•&nbsp; Referencias</div>
+  <div class="raya" style="left:440px;top:76px;width:1530px"></div>
+  <h1 style="left:72px;top:118px;font-size:96px">Las marcas que ya crecen con nosotros</h1>
+  <p class="p" style="left:72px;top:238px;width:1800px;font-size:25px">Moda, alimentación, fitness, salud, restauración y banca: operadores líderes que confían en nosotros para abrir sus locales.</p>
+  <div style="position:absolute;left:72px;top:318px;width:1904px;display:grid;grid-template-columns:repeat(4,1fr);column-gap:28px;row-gap:34px">
+    <div><img loading="lazy" src="../img/r-bershka.jpg" style="width:100%;height:322px;object-fit:cover;display:block"><div class="serif" style="font-size:52px;margin-top:20px">Bershka</div><div class="caps" style="font-size:15px;margin-top:10px">Moda</div></div>
+    <div><img loading="lazy" src="../img/r-synergym.jpg" style="width:100%;height:322px;object-fit:cover;display:block"><div class="serif" style="font-size:52px;margin-top:20px">Synergym</div><div class="caps" style="font-size:15px;margin-top:10px">Fitness</div></div>
+    <div><img loading="lazy" src="../img/r-vitaldent.jpg" style="width:100%;height:322px;object-fit:cover;display:block"><div class="serif" style="font-size:52px;margin-top:20px">Vitaldent</div><div class="caps" style="font-size:15px;margin-top:10px">Salud dental</div></div>
+    <div><img loading="lazy" src="../img/r-sirena.jpg" style="width:100%;height:322px;object-fit:cover;display:block"><div class="serif" style="font-size:52px;margin-top:20px">La Sirena</div><div class="caps" style="font-size:15px;margin-top:10px">Alimentación</div></div>
+    <div><img loading="lazy" src="../img/r-365.jpg" style="width:100%;height:322px;object-fit:cover;display:block"><div class="serif" style="font-size:52px;margin-top:20px">365 Obrador</div><div class="caps" style="font-size:15px;margin-top:10px">Restauración</div></div>
+    <div><img loading="lazy" src="../img/r-dia.jpg" style="width:100%;height:322px;object-fit:cover;display:block"><div class="serif" style="font-size:52px;margin-top:20px">Dia</div><div class="caps" style="font-size:15px;margin-top:10px">Supermercado</div></div>
+    <div><img loading="lazy" src="../img/r-carrefour.jpg" style="width:100%;height:322px;object-fit:cover;display:block"><div class="serif" style="font-size:52px;margin-top:20px">Carrefour</div><div class="caps" style="font-size:15px;margin-top:10px">Supermercado</div></div>
+    <div><img loading="lazy" src="../img/r-bbva.jpg" style="width:100%;height:322px;object-fit:cover;display:block"><div class="serif" style="font-size:52px;margin-top:20px">BBVA</div><div class="caps" style="font-size:15px;margin-top:10px">Banca</div></div>
+  </div>
+  <div class="pie" style="left:72px;top:1300px;font-size:18px">Expand <i>·</i> by Ayalon Investments</div>
+  <div class="n" style="left:1932px;top:1300px;font-size:18px">05</div>
+</section></div>
+    <div class="w-hoja"><section class="pag">
+  <div class="rotulo" style="left:78px;top:100px">05 &nbsp;•&nbsp; Cartera retail</div>
+  <div class="raya" style="left:78px;top:150px;width:866px"></div>
+  <h1 style="left:78px;top:218px;font-size:124px;line-height:.98">Una red de locales<br>en toda España</h1>
+  <div class="serif" style="position:absolute;left:78px;top:548px;font-size:150px">350</div>
+  <div class="p" style="left:80px;top:700px;font-size:28px">Locales comerciales</div>
+  <div class="serif" style="position:absolute;left:78px;top:790px;font-size:150px">80.000 m²</div>
+  <div class="p" style="left:80px;top:942px;font-size:28px">de retail</div>
+  <p class="p" style="left:80px;top:1030px;width:830px;font-size:27px;line-height:1.55">Gestionamos una de las carteras de locales más extensas del país. Conocemos de primera mano lo que necesita un operador en cada ubicación.</p>
+  <div style="position:absolute;left:1010px;top:340px;width:1038px"><img loading="lazy" src="../img/mapa.png" style="display:block;width:100%"><img loading="lazy" src="../img/marcadores.svg" style="position:absolute;inset:0;width:100%;height:100%"></div>
+  <div class="raya" style="left:78px;top:1250px;width:866px"></div>
+  <div class="pie" style="left:78px;top:1280px">Expand <i>·</i> by Ayalon Investments</div>
+  <div class="n" style="left:1930px;top:1280px">06</div>
+</section></div>
+    <div class="w-hoja"><section class="pag">
+  <div class="rotulo" style="left:70px;top:66px">06 &nbsp;•&nbsp; Logística</div>
+  <div class="raya" style="left:400px;top:80px;width:910px"></div>
+  <h1 style="left:70px;top:150px;font-size:112px">Instalaciones logísticas</h1>
+  <div style="position:absolute;left:70px;top:430px;width:1244px;display:grid;grid-template-columns:repeat(3,1fr);column-gap:24px">
+    <div><img loading="lazy" src="../img/l-mercedes.jpg" style="width:100%;height:488px;object-fit:cover;display:block"><div style="height:200px;border-top:1.5px solid rgba(127,174,159,.6);margin-top:26px;padding-top:24px"><div class="serif" style="font-size:52px">Mercedes Group</div><div class="caps" style="font-size:16px;line-height:1.6;margin-top:16px">Nave logística ·<br>Esparraguera, Barcelona</div></div><div class="serif" style="font-size:76px">13.500 m²</div></div>
+    <div><img loading="lazy" src="../img/l-arnas.jpg" style="width:100%;height:488px;object-fit:cover;display:block"><div style="height:200px;border-top:1.5px solid rgba(127,174,159,.6);margin-top:26px;padding-top:24px"><div class="serif" style="font-size:52px;line-height:.95">Arnas Logística<br>de Frío</div><div class="caps" style="font-size:16px;line-height:1.6;margin-top:14px">Nave frigorífica ·<br>Pinto, Madrid</div></div><div class="serif" style="font-size:76px">3.000 m²</div></div>
+    <div><img loading="lazy" src="../img/l-snop.jpg" style="width:100%;height:488px;object-fit:cover;display:block"><div style="height:200px;border-top:1.5px solid rgba(127,174,159,.6);margin-top:26px;padding-top:24px"><div class="serif" style="font-size:52px">Snop SA</div><div class="caps" style="font-size:16px;line-height:1.6;margin-top:16px">Nave industrial · Santa Margarida<br>i els Monjos, Barcelona</div></div><div class="serif" style="font-size:76px">5.000 m²</div></div>
+  </div>
+  <div class="osc" style="position:absolute;left:1360px;top:0;width:688px;height:1360px">
+    <div class="rotulo" style="left:84px;top:384px;font-size:20px">También en logística</div>
+    <div class="raya" style="left:84px;top:426px;width:520px"></div>
+    <div class="serif" style="position:absolute;left:84px;top:470px;font-size:64px;line-height:1.08">Naves logísticas,<br>frigoríficas e<br>industriales</div>
+    <p class="p" style="left:84px;top:722px;width:500px;font-size:27px;line-height:1.55">Con el mismo modelo que en retail: las compramos y os las arrendamos a largo plazo.</p>
+    <div class="n" style="left:600px;top:1284px">07</div>
+  </div>
+  <div class="pie" style="left:70px;top:1284px">Expand <i>·</i> by Ayalon Investments</div>
+</section></div>
+    <div class="w-hoja"><section class="pag osc">
+  <div class="rotulo" style="left:80px;top:112px">07 &nbsp;•&nbsp; Nuestro modelo</div>
+  <div class="raya" style="left:80px;top:158px;width:1168px"></div>
+  <h1 style="left:78px;top:226px;font-size:146px;line-height:.98">Lo encontramos.<br>Lo compramos.<br>Os lo arrendamos.</h1>
+  <p class="p" style="left:80px;top:736px;width:1150px;font-size:30px;line-height:1.55">Somos una PropCo boutique que financia la expansión inmobiliaria de marcas consolidadas mediante el modelo de alquiler llave en mano.<br><b>Contamos con una red de colaboradores en toda España que nos encuentra producto off-market antes de que llegue al mercado.</b></p>
+  <div class="raya" style="left:80px;top:990px;width:1168px"></div>
+  <div style="position:absolute;left:80px;top:1026px;width:1168px;display:grid;grid-template-columns:repeat(5,1fr)">
+    <div style="padding-right:22px;border-right:1.5px solid rgba(214,226,220,.35);height:240px"><div class="serif" style="font-size:66px;color:var(--menta)">01</div><p style="font-size:23px;line-height:1.45;margin-top:22px">Expansión sin capital propio</p></div>
+    <div style="padding:0 22px;border-right:1.5px solid rgba(214,226,220,.35)"><div class="serif" style="font-size:66px;color:var(--menta)">02</div><p style="font-size:23px;line-height:1.45;margin-top:22px">Sin sobreprecio de marca: compramos a nuestro nombre</p></div>
+    <div style="padding:0 22px;border-right:1.5px solid rgba(214,226,220,.35)"><div class="serif" style="font-size:66px;color:var(--menta)">03</div><p style="font-size:23px;line-height:1.45;margin-top:22px">Red de colaboradores en toda España con producto off-market</p></div>
+    <div style="padding:0 22px;border-right:1.5px solid rgba(214,226,220,.35)"><div class="serif" style="font-size:66px;color:var(--menta)">04</div><p style="font-size:23px;line-height:1.45;margin-top:22px">Capital listo para desplegar a escala multi-sede</p></div>
+    <div style="padding-left:22px"><div class="serif" style="font-size:66px;color:var(--menta)">05</div><p style="font-size:23px;line-height:1.45;margin-top:22px">Renta competitiva sin impactar vuestros márgenes</p></div>
+  </div>
+  <img loading="lazy" class="foto" src="../img/modelo.jpg" style="left:1306px;top:0;width:742px;height:1360px">
+  <div class="pie" style="left:80px;top:1296px;font-size:18px">Expand <i>·</i> by Ayalon Investments</div>
+  <div class="n" style="left:1210px;top:1296px;font-size:18px">08</div>
+</section></div>
+    <div class="w-hoja"><section class="pag">
+  <img loading="lazy" class="foto" src="../img/local-vacio.jpg" style="left:0;top:0;width:770px;height:1360px">
+  <div class="rotulo" style="left:866px;top:112px">08 &nbsp;•&nbsp; Fórmulas de colaboración</div>
+  <div class="raya" style="left:866px;top:156px;width:1104px"></div>
+  <h1 style="left:864px;top:214px;font-size:132px;line-height:.98">Tres maneras<br>de crecer juntos</h1>
+  <div style="position:absolute;left:866px;top:500px;width:1104px">
+    <div style="display:grid;grid-template-columns:230px 1fr;padding:22px 0 30px"><div class="serif" style="font-size:150px">01</div><div style="padding-top:20px"><div class="serif" style="font-size:52px">Os encontramos el local</div><p style="font-size:28px;line-height:1.5;margin-top:14px">Nos contáis qué buscáis y dónde. Localizamos el local, lo compramos y os lo alquilamos listo para abrir.</p></div></div>
+    <div style="display:grid;grid-template-columns:230px 1fr;padding:30px 0;border-top:1.5px solid rgba(127,174,159,.6)"><div class="serif" style="font-size:150px">02</div><div style="padding-top:20px"><div class="serif" style="font-size:52px">Sale &amp; Leaseback</div><p style="font-size:28px;line-height:1.5;margin-top:14px">Os compramos los locales que ya tenéis en propiedad y seguís operando en ellos como inquilinos. Liberáis capital sin mover una tienda.</p></div></div>
+    <div style="display:grid;grid-template-columns:230px 1fr;padding:30px 0;border-top:1.5px solid rgba(127,174,159,.6)"><div class="serif" style="font-size:150px">03</div><div style="padding-top:20px"><div class="serif" style="font-size:52px">Vosotros elegís, nosotros compramos</div><p style="font-size:28px;line-height:1.5;margin-top:14px">¿Habéis encontrado el local ideal? Nosotros lo compramos y entráis como inquilinos, sin inmovilizar vuestro capital.</p></div></div>
+  </div>
+  <div class="pie" style="left:866px;top:1300px;font-size:18px">Expand <i>·</i> by Ayalon Investments</div>
+  <div class="n" style="left:1930px;top:1300px;font-size:18px">09</div>
+</section></div>
+    <div class="w-hoja"><section class="pag">
+  <div class="rotulo" style="left:78px;top:116px">09 &nbsp;•&nbsp; Qué buscamos</div>
+  <div class="raya" style="left:520px;top:130px;width:580px"></div>
+  <h1 style="left:78px;top:200px;font-size:110px;line-height:.98">Marcas consolidadas<br>con un plan de<br>crecimiento</h1>
+  <div style="position:absolute;left:80px;top:630px;width:1020px;display:grid;grid-template-columns:1fr 1fr">
+    <div style="padding-right:40px;border-right:1.5px solid rgba(127,174,159,.6)">
+      <div class="rotulo" style="position:static;font-size:20px">Sectores</div>
+      <div class="raya" style="position:static;margin-top:20px;width:100%"></div>
+      <ul style="list-style:none;font-size:27px;line-height:2.2;margin-top:18px"><li>Supermercados y alimentación</li><li>Retail high street</li><li>Banca y servicios</li><li>Restauración</li><li>Salud y fitness</li><li>Logística e industrial</li></ul>
     </div>
-    <p style="margin-top:22px">Gestionamos una de las carteras de locales más extensas del país. Conocemos de primera mano lo que necesita un operador en cada ubicación.</p>
+    <div style="padding-left:40px">
+      <div class="rotulo" style="position:static;font-size:20px">Criterios</div>
+      <div class="raya" style="position:static;margin-top:20px;width:100%"></div>
+      <ul style="list-style:none;font-size:27px;line-height:1.45;margin-top:30px;display:grid;gap:30px"><li>Activos: locales, medianas superficies y naves</li><li>Superficie: de 350 m² a más de 13.000 m²</li><li>Ubicación: todo el territorio nacional</li><li>Contrato: arrendamiento a largo plazo</li></ul>
+    </div>
   </div>
-  <img src="../img/mapa.png" alt="Mapa de España con los locales de la cartera" loading="lazy">
-</div></section>
-
-<section><div class="env">
-  <div class="rot"><i>06</i>Logística</div>
-  <h2>Instalaciones <em>logísticas</em></h2>
-  <p style="margin-top:14px">Naves logísticas, frigoríficas e industriales, con el mismo modelo que en retail: las compramos y os las arrendamos a largo plazo.</p>
-  <div class="carril">
-    <div><img src="../img/l-mercedes.jpg" alt="" loading="lazy"><h3>Mercedes Group</h3><div class="etq">Nave logística · Esparraguera</div><div class="cifra" style="font-size:34px;margin-top:10px">13.500<small>m²</small></div></div>
-    <div><img src="../img/l-arnas.jpg" alt="" loading="lazy"><h3>Arnas Logística de Frío</h3><div class="etq">Nave frigorífica · Pinto</div><div class="cifra" style="font-size:34px;margin-top:10px">3.000<small>m²</small></div></div>
-    <div><img src="../img/l-snop.jpg" alt="" loading="lazy"><h3>Snop SA</h3><div class="etq">Nave industrial · Sta. Margarida i els Monjos</div><div class="cifra" style="font-size:34px;margin-top:10px">5.000<small>m²</small></div></div>
+  <img loading="lazy" class="foto" src="../img/calle.jpg" style="left:1154px;top:0;width:894px;height:1360px">
+  <div class="raya" style="left:80px;top:1226px;width:1020px"></div>
+  <div class="pie" style="left:80px;top:1262px">Expand <i>·</i> by Ayalon Investments</div>
+  <div class="n" style="left:1062px;top:1262px">10</div>
+</section></div>
+    <div class="w-hoja"><section class="pag osc">
+  <div class="rotulo" style="left:80px;top:112px">10 &nbsp;•&nbsp; Cómo trabajamos</div>
+  <div class="raya" style="left:80px;top:158px;width:860px"></div>
+  <h1 style="left:78px;top:220px;font-size:150px;line-height:.98">Así trabajamos<br>con vosotros</h1>
+  <div class="raya" style="left:80px;top:560px;width:1888px;background:rgba(214,226,220,.35)"></div>
+  <div style="position:absolute;left:80px;top:552px;width:1888px;display:grid;grid-template-columns:repeat(6,1fr);column-gap:34px">
+    <div><i style="display:block;width:16px;height:16px;background:var(--suave)"></i><div class="serif" style="font-size:88px;margin-top:30px">01</div><div class="serif" style="font-size:40px;margin-top:22px">Vuestro plan</div><p style="font-size:23px;line-height:1.45;margin-top:14px">Zonas, formatos y calendario de aperturas</p></div>
+    <div><i style="display:block;width:16px;height:16px;background:var(--suave)"></i><div class="serif" style="font-size:88px;margin-top:30px">02</div><div class="serif" style="font-size:40px;margin-top:22px">Nuestra red</div><p style="font-size:23px;line-height:1.45;margin-top:14px">Colaboradores en toda España buscando producto</p></div>
+    <div><i style="display:block;width:16px;height:16px;background:var(--menta)"></i><div class="serif" style="font-size:88px;margin-top:30px">03</div><div class="serif" style="font-size:40px;margin-top:22px">Selección</div><p style="font-size:23px;line-height:1.45;margin-top:14px">Analizamos ubicación, tráfico y encaje</p></div>
+    <div><i style="display:block;width:16px;height:16px;background:var(--menta)"></i><div class="serif" style="font-size:88px;margin-top:30px">04</div><div class="serif" style="font-size:40px;margin-top:22px">Compra</div><p style="font-size:23px;line-height:1.45;margin-top:14px">Estructura legal y adquisición a nuestro nombre</p></div>
+    <div><i style="display:block;width:16px;height:16px;background:var(--menta)"></i><div class="serif" style="font-size:88px;margin-top:30px">05</div><div class="serif" style="font-size:40px;margin-top:22px">Contrato</div><p style="font-size:23px;line-height:1.45;margin-top:14px">Arrendamiento a largo plazo, a vuestra medida</p></div>
+    <div><i style="display:block;width:16px;height:16px;background:var(--menta)"></i><div class="serif" style="font-size:88px;margin-top:30px">06</div><div class="serif" style="font-size:40px;margin-top:22px">Acompañamiento</div><p style="font-size:23px;line-height:1.45;margin-top:14px">Un interlocutor directo durante toda la relación</p></div>
   </div>
-</div></section>
-
-<section class="osc"><div class="env dos">
-  <div>
-    <div class="rot"><i>07</i>Nuestro modelo</div>
-    <h2>Lo encontramos. Lo compramos. <em>Os lo arrendamos.</em></h2>
-    <p style="margin-top:20px">Somos una PropCo boutique que financia la expansión inmobiliaria de marcas consolidadas mediante el modelo de alquiler llave en mano. <b>Contamos con una red de colaboradores en toda España que nos encuentra producto off-market antes de que llegue al mercado.</b></p>
-    <ol class="pasos">
-      <li><span class="n">01</span><span>Expansión sin capital propio</span></li>
-      <li><span class="n">02</span><span>Sin sobreprecio de marca: compramos a nuestro nombre</span></li>
-      <li><span class="n">03</span><span>Red de colaboradores en toda España con producto off-market</span></li>
-      <li><span class="n">04</span><span>Capital listo para desplegar a escala multi-sede</span></li>
-      <li><span class="n">05</span><span>Renta competitiva sin impactar vuestros márgenes</span></li>
-    </ol>
+  <img loading="lazy" src="../marca/expand-simbolo-negativo.svg" style="position:absolute;left:1700px;top:960px;height:260px;opacity:.22">
+  <div class="pie" style="left:80px;top:1284px">Expand <i>·</i> by Ayalon Investments</div>
+  <div class="n" style="left:1930px;top:1284px">11</div>
+</section></div>
+    <div class="w-hoja"><section class="pag">
+  <style>
+  .tec .item{display:grid;grid-template-columns:62px 1fr;padding:12px 0 11px;border-top:1.5px solid rgba(127,174,159,.55)}
+  .tec .item .k{font-family:"Serif";font-size:36px;line-height:1;color:var(--tinta)}
+  .tec .item h2{font-family:"Serif";font-weight:400;font-size:30px;line-height:1.1;color:var(--tinta)}
+  .tec .item p{font-size:19.5px;line-height:1.4;margin-top:5px}
+  .tec .filtros{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+  .tec .filtros span{font-size:14.5px;line-height:1;padding:6px 10px;border:1.2px solid rgba(11,107,87,.35);border-radius:999px;color:var(--tinta);background:rgba(255,255,255,.55);font-weight:500}
+  .tec .filtros span.d{background:var(--texto);color:#fff;border-color:var(--texto)}
+  .tec .fuerte{background:linear-gradient(90deg,rgba(11,107,87,.08),rgba(11,107,87,0))}
+  .der{position:absolute;left:850px;top:0;width:1198px;height:1360px;background:var(--noche);overflow:hidden}
+  .der::before{content:"";position:absolute;inset:0;background:radial-gradient(ellipse at 55% 40%,rgba(255,255,255,.08),rgba(255,255,255,0) 60%)}
+  .leyenda{position:absolute;color:#E6ECE8;font-size:18px;letter-spacing:.16em;font-weight:600;text-transform:uppercase;white-space:nowrap}
+  .leyenda span{display:block;letter-spacing:0;text-transform:none;font-weight:400;font-size:18px;color:#B9CCC4;margin-top:4px}
+  .portatil{position:absolute;left:120px;top:150px;width:960px}
+  .pantalla{background:#0b0f1e;border-radius:22px 22px 0 0;padding:16px 16px 18px;box-shadow:0 40px 80px rgba(0,0,0,.35)}
+  .pantalla img{display:block;width:100%;border-radius:4px}
+  .base{height:26px;margin:0 -60px;background:linear-gradient(#d9dbe3,#a9adba);border-radius:0 0 18px 18px}
+  .movil{position:absolute;width:268px;padding:10px;background:#0b0f1e;border-radius:44px;box-shadow:0 30px 60px rgba(0,0,0,.45);border:2px solid #3a4160}
+  .movil img{display:block;width:100%;border-radius:34px}
+  .tarjeta{position:absolute;background:#fff;border-radius:14px;overflow:hidden;box-shadow:0 24px 50px rgba(0,0,0,.35)}
+  .tarjeta img{display:block;width:100%}
+  .chip{position:absolute;background:#F4F2EA;color:var(--tinta);font-weight:700;font-size:17px;letter-spacing:.08em;padding:8px 14px;border-radius:999px;text-transform:uppercase;box-shadow:0 8px 20px rgba(0,0,0,.25);z-index:2}
+  </style>
+  <div class="tec" style="position:absolute;left:84px;top:0;width:700px;height:1360px">
+    <div class="rotulo" style="left:0;top:96px">11 &nbsp;•&nbsp; Tecnología</div>
+    <div class="raya" style="left:0;top:142px;width:700px"></div>
+    <h1 style="left:0;top:176px;font-size:66px;line-height:1.02">Tecnología propia<br>para vuestra expansión</h1>
+    <p class="p" style="left:0;top:344px;width:700px;font-size:22.5px;line-height:1.48"><b style="color:var(--tinta)">Nuestro Radar</b> une inteligencia artificial, los datos públicos de toda España y nuestro equipo en cada zona para encontrar los inmuebles que encajan con vuestra marca, también los que no están a la venta.</p>
+    <div style="position:absolute;top:478px;left:0;width:700px">
+      <div class="item"><div class="k">01</div><div><h2>Todo lo que cumple vuestros criterios</h2>
+        <p>Revisa cada parcela, edificio y local de España, esté o no en venta, con los filtros de cada marca:</p>
+        <div class="filtros"><span>Metros de parcela y construidos</span><span>Una sola planta</span><span>A pie de calle</span><span>Fachada y frente</span><span>Plazas de aparcamiento</span><span>Habitantes a 10–15 min en coche</span><span>Población</span><span>Renta</span><span>Uso urbanístico</span><span>Acceso desde vía principal</span><span>Libre u ocupado</span><span>Distancia a vuestras tiendas</span><span>Competencia cerca</span></div></div></div>
+      <div class="item"><div class="k">02</div><div><h2>El match con vuestra marca</h2>
+        <p>Cruza Catastro, urbanismo, población, renta y competencia y puntúa el encaje de cada inmueble con lo que buscáis.</p></div></div>
+      <div class="item"><div class="k">03</div><div><h2>Los portales, cada día</h2>
+        <p>Rastrea los portales a diario y avisa de anuncios nuevos y bajadas de precio en vuestras zonas.</p></div></div>
+      <div class="item fuerte"><div class="k">04</div><div><h2>Salimos a conseguirlas</h2>
+        <p>Nuestros colaboradores visitan cada inmueble de su zona y localizan al propietario. No esperamos a que el producto llegue: vamos a por él.</p>
+        <div class="filtros"><span>Visita en persona</span><span>Propietario localizado</span><span class="d">Nota simple del Registro de cada finca</span></div></div></div>
+      <div class="item"><div class="k">05</div><div><h2>A vuestra disposición</h2>
+        <p>Un perfil privado con las oportunidades y su avance, donde nos decís qué os sirve.</p></div></div>
+    </div>
+    <div class="raya" style="left:0;top:1270px;width:700px"></div>
+    <div class="pie" style="left:0;top:1290px">Expand <i>·</i> by Ayalon Investments</div>
   </div>
-  <img src="../img/modelo.jpg" alt="Calle comercial con escaparates" loading="lazy">
-</div></section>
-
-<section><div class="env dos">
-  <img src="../img/local-vacio.jpg" alt="Local vacío listo para abrir" loading="lazy">
-  <div>
-    <div class="rot"><i>08</i>Fórmulas de colaboración</div>
-    <h2>Tres maneras de crecer <em>juntos</em></h2>
-    <ol class="pasos">
-      <li><span class="n">01</span><div><h3>Os encontramos el local</h3><p>Nos contáis qué buscáis y dónde. Localizamos el local, lo compramos y os lo alquilamos listo para abrir.</p></div></li>
-      <li><span class="n">02</span><div><h3>Sale &amp; Leaseback</h3><p>Os compramos los locales que ya tenéis en propiedad y seguís operando en ellos como inquilinos. <b>Liberáis capital sin mover una tienda.</b></p></div></li>
-      <li><span class="n">03</span><div><h3>Vosotros elegís, nosotros compramos</h3><p>¿Habéis encontrado el local ideal? Nosotros lo compramos y entráis como inquilinos, sin inmovilizar vuestro capital.</p></div></li>
-    </ol>
+  <div class="der">
+    <div class="leyenda" style="left:120px;top:84px">Nuestro Radar<span>Así lo ve nuestro equipo: los inmuebles que encajan con cada marca</span></div>
+    <div class="portatil"><div class="pantalla"><img loading="lazy" src="../img/r_d_marca.jpg"></div><div class="base"></div></div>
+    <div class="tarjeta" style="left:54px;top:520px;width:400px"><img loading="lazy" src="../img/r_encaje.jpg"></div>
+    <div class="chip" style="left:72px;top:488px">El match con vuestra marca</div>
+    <div class="tarjeta" style="left:28px;top:900px;width:212px;transform:rotate(-5deg)"><img loading="lazy" src="../img/r_an_1215340.jpg"></div>
+    <div class="tarjeta" style="left:150px;top:888px;width:212px;transform:rotate(-1deg)"><img loading="lazy" src="../img/r_an_1250000.jpg"></div>
+    <div class="tarjeta" style="left:276px;top:900px;width:212px;transform:rotate(4deg)"><img loading="lazy" src="../img/r_an_1500000.jpg"></div>
+    <div class="chip" style="left:60px;top:830px">Portales, cada día</div>
+    <div class="movil" style="left:520px;top:640px"><img loading="lazy" src="../img/r_m_zona.jpg"></div>
+    <div class="leyenda" style="left:520px;top:1222px">Colaborador de zona<span>La app en su móvil</span></div>
+    <div class="movil" style="left:850px;top:620px"><img loading="lazy" src="../img/r_m_marca.jpg"></div>
+    <div class="leyenda" style="left:850px;top:1222px">Vuestro perfil<span>Privado, para vuestra marca</span></div>
+    <div class="n" style="left:1110px;top:1290px;color:#E6ECE8">12</div>
   </div>
-</div></section>
-
-<section><div class="env dos">
-  <div>
-    <div class="rot"><i>09</i>Qué buscamos</div>
-    <h2>Marcas consolidadas con un plan de <em>crecimiento</em></h2>
-    <div class="etq" style="margin-top:26px;color:var(--verde)">Sectores</div>
-    <div class="chips"><span>Supermercados y alimentación</span><span>Retail high street</span><span>Banca y servicios</span><span>Restauración</span><span>Salud y fitness</span><span>Logística e industrial</span></div>
-    <div class="etq" style="margin-top:26px;color:var(--verde)">Criterios</div>
-    <ol class="pasos" style="margin-top:10px">
-      <li style="grid-template-columns:120px 1fr"><b>Activos</b><span>Locales, medianas superficies y naves</span></li>
-      <li style="grid-template-columns:120px 1fr"><b>Superficie</b><span>De 350 m² a más de 13.000 m²</span></li>
-      <li style="grid-template-columns:120px 1fr"><b>Ubicación</b><span>Todo el territorio nacional</span></li>
-      <li style="grid-template-columns:120px 1fr"><b>Contrato</b><span>Arrendamiento a largo plazo</span></li>
-    </ol>
+</section></div>
+    <div class="w-hoja"><section class="pag osc">
+  <img loading="lazy" class="foto" src="../img/contacto.jpg" style="left:0;top:0;width:790px;height:1360px">
+  <img loading="lazy" src="../marca/expand-by-ayalon-negativo.svg" style="position:absolute;left:916px;top:88px;height:132px">
+  <div class="raya" style="left:916px;top:296px;width:1020px"></div>
+  <h1 style="left:914px;top:372px;font-size:136px;line-height:.98">Hablemos de<br>vuestra próxima<br>apertura</h1>
+  <p class="p" style="left:916px;top:820px;width:1000px;font-size:31px;line-height:1.5">Contadnos vuestro plan de expansión y os<br>presentamos activos a medida.</p>
+  <div class="raya" style="left:916px;top:968px;width:1020px"></div>
+  <div style="position:absolute;left:916px;top:1010px;display:flex;align-items:stretch">
+    <div style="padding-right:76px"><div style="font-size:20px;letter-spacing:.04em;color:#B9CCC4">Teléfono</div><div style="font-size:32px;color:#F7F2E8;margin-top:10px">633 644 768</div></div>
+    <div style="padding-left:76px;border-left:1.5px solid rgba(214,226,220,.35)"><div style="font-size:20px;letter-spacing:.04em;color:#B9CCC4">Email</div><div style="font-size:32px;color:#F7F2E8;margin-top:10px">office@ayalon-invest.com</div></div>
   </div>
-  <img src="../img/calle.jpg" alt="Calle comercial con gente paseando" loading="lazy">
-</div></section>
-
-<section class="osc"><div class="env">
-  <div class="rot"><i>10</i>Cómo trabajamos</div>
-  <h2>Así trabajamos con <em>vosotros</em></h2>
-  <ol class="linea">
-    <li><div class="etq">01</div><h3>Vuestro plan</h3><p>Zonas, formatos y calendario de aperturas</p></li>
-    <li><div class="etq">02</div><h3>Nuestra red</h3><p>Colaboradores en toda España buscando producto</p></li>
-    <li><div class="etq">03</div><h3>Selección</h3><p>Analizamos ubicación, tráfico y encaje</p></li>
-    <li><div class="etq">04</div><h3>Compra</h3><p>Estructura legal y adquisición a nuestro nombre</p></li>
-    <li><div class="etq">05</div><h3>Contrato</h3><p>Arrendamiento a largo plazo, a vuestra medida</p></li>
-    <li><div class="etq">06</div><h3>Acompañamiento</h3><p>Un interlocutor directo durante toda la relación</p></li>
-  </ol>
-</div></section>
-
-<section><div class="env">
-  <div class="rot"><i>11</i>Tecnología</div>
-  <h2>Tecnología propia para vuestra <em>expansión</em></h2>
-  <p style="margin-top:16px"><b>Nuestro Radar</b> une inteligencia artificial, los datos públicos de toda España y nuestro equipo en cada zona para encontrar los inmuebles que encajan con vuestra marca, también los que no están a la venta.</p>
-  <img class="portatil" src="../img/r_d_marca.jpg" alt="El Radar: lista de inmuebles que encajan con una marca" loading="lazy">
-  <ol class="pasos">
-    <li><span class="n">01</span><div><h3>Todo lo que cumple vuestros criterios</h3><p>Revisa cada parcela, edificio y local de España, esté o no en venta, con los filtros de cada marca.</p>
-      <div class="chips"><span>Metros de parcela y construidos</span><span>Una sola planta</span><span>A pie de calle</span><span>Fachada y frente</span><span>Aparcamiento</span><span>Habitantes a 10–15 min</span><span>Renta</span><span>Uso urbanístico</span><span>Libre u ocupado</span><span>Competencia cerca</span></div></div></li>
-    <li><span class="n">02</span><div><h3>El match con vuestra marca</h3><p>Cruza Catastro, urbanismo, población, renta y competencia y puntúa el encaje de cada inmueble con lo que buscáis.</p></div></li>
-    <li><span class="n">03</span><div><h3>Los portales, cada día</h3><p>Rastrea los portales a diario y avisa de anuncios nuevos y bajadas de precio en vuestras zonas.</p></div></li>
-    <li><span class="n">04</span><div><h3>Salimos a conseguirlas</h3><p>Nuestros colaboradores visitan cada inmueble de su zona y localizan al propietario. No esperamos a que el producto llegue: vamos a por él.</p>
-      <div class="chips"><span>Visita en persona</span><span>Propietario localizado</span><span class="d">Nota simple del Registro</span></div></div></li>
-    <li><span class="n">05</span><div><h3>A vuestra disposición</h3><p>Un perfil privado con las oportunidades y su avance, donde nos decís qué os sirve.</p></div></li>
-  </ol>
-  <div class="capturas">
-    <figure><img src="../img/r_m_marca.jpg" alt="Perfil privado de la marca en el móvil" loading="lazy"><figcaption>Vuestro perfil, privado</figcaption></figure>
-    <figure><img src="../img/r_m_zona.jpg" alt="App del colaborador de zona" loading="lazy"><figcaption>El colaborador de zona, en su móvil</figcaption></figure>
-    <figure><img src="../img/r_encaje.jpg" alt="Puntuación de encaje con la marca" loading="lazy" style="border-radius:8px"><figcaption>El encaje con vuestra marca</figcaption></figure>
+  <div class="raya" style="left:916px;top:1196px;width:1020px"></div>
+  <div class="pie" style="left:916px;top:1232px;letter-spacing:.06em;color:var(--menta)">Partnering for Growth</div>
+</section></div>
   </div>
-</div></section>
-
-<section class="osc" id="contacto"><div class="env dos">
-  <div>
-    <img src="../marca/expand-by-ayalon-negativo.svg" alt="Expand by Ayalon Investments" style="height:64px">
-    <h2 style="margin-top:28px">Hablemos de vuestra próxima <em>apertura</em></h2>
-    <p style="margin-top:16px">Contadnos vuestro plan de expansión y os presentamos activos a medida.</p>
-    
-      <div class="ficha">
-        <div class="ficha-cab"><img class="avatar" src="../img/e-jacob.jpg" alt="Jacob Covadlo"><div><b>Jacob Covadlo</b><span>Business Developer</span></div></div>
-        <div class="botones">
-          <a class="btn prim" href="tel:+34603833422">Llamar</a>
-          <a class="btn prim" href="https://wa.me/34603833422">WhatsApp</a>
-          <a class="btn" href="mailto:jacob@ayalon-invest.com">Correo</a>
-          <a class="btn" href="jacob.vcf">Guardar contacto</a>
-        </div>
-        <div class="datos">603 833 422 · jacob@ayalon-invest.com</div>
-      </div>
-    <p style="margin-top:22px;font-size:15px">Oficina: <a href="tel:+34633644768">633 644 768</a> · <a href="mailto:office@ayalon-invest.com">office@ayalon-invest.com</a></p>
-  </div>
-  <img src="../img/contacto.jpg" alt="Escaparate iluminado de un local" loading="lazy">
-</div></section>
+  <p class="w-pie">Expand · by Ayalon Investments · Partnering for Growth</p>
 </main>
-
-<footer class="pie"><div class="env">
-  <span class="etq" style="color:var(--menta)">Partnering for Growth</span>
-  <img src="../marca/expand-by-ayalon-negativo.svg" alt="Expand by Ayalon Investments" style="height:44px">
-</div></footer>
+<nav class="w-barra" aria-label="Contactar con Jacob Covadlo"><div class="w-botones">
+  <a class="w-btn w-prim" href="tel:+34603833422">Llamar a Jacob</a>
+  <a class="w-btn w-prim" href="https://wa.me/34603833422">WhatsApp</a>
+</div></nav>
+<script>
+/* Cada página del dossier mide 2048 × 1360: se escala al ancho disponible sin tocar su maquetación. */
+(function(){
+  var usaZoom = window.CSS && CSS.supports && CSS.supports('zoom', '0.5');
+  function ajusta(){
+    document.querySelectorAll('.w-hoja').forEach(function(h){
+      var k = h.clientWidth / 2048, p = h.firstElementChild;
+      if (usaZoom) { p.style.zoom = k; p.style.transform = ''; } else { p.style.transform = 'scale(' + k + ')'; }
+    });
+  }
+  ajusta();
+  if (window.ResizeObserver) new ResizeObserver(ajusta).observe(document.querySelector('.w-hojas'));
+  else window.addEventListener('resize', ajusta);
+})();
+</script>
 </body></html>
